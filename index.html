@@ -28,7 +28,7 @@
     .nav-cell:hover a{color:var(--bi);}
 
     /* HERO — tighter gap, text pushed toward center */
-    #hero{width:100%;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 5rem;gap:3rem;overflow:hidden;}
+    #hero{width:100%;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 8rem;gap:3rem;overflow:hidden;}
     .hl{opacity:0;animation:fadeUp .8s .3s ease forwards;}
     .hn{font-size:clamp(3rem,5.5vw,5rem);font-weight:600;color:var(--bi);line-height:1;letter-spacing:-.03em;}
     .hn .ac{color:var(--bd);font-weight:300;font-style:italic;}
@@ -320,6 +320,82 @@
 
     /* BOLD in modal */
     .cb strong{color:var(--bi);font-weight:600;}
+
+    /* ── MOBILE & RESPONSIVE ── */
+    @media (max-width: 768px){
+      /* hero */
+      #hero{
+        grid-template-columns:1fr;
+        grid-template-rows:auto auto;
+        height:auto;
+        min-height:100vh;
+        padding:6rem 1.5rem 3rem;
+        gap:2rem;
+        align-items:center;
+        justify-items:center;
+      }
+      .hl{text-align:center;align-items:center;}
+      .hn{font-size:clamp(2.4rem,10vw,3.5rem);}
+      .hs{max-width:100%;font-size:.88rem;}
+      .ha{justify-content:center;}
+      .hr2{justify-content:center;width:100%;}
+      .tw{width:min(260px,80vw);}
+
+      /* nav */
+      .nav-inner{grid-template-columns:repeat(4,auto);gap:0;}
+      .nav-cell{padding:.45rem .9rem;}
+      .nav-cell a{font-size:.65rem;}
+
+      /* sections */
+      .si{padding:2.5rem 1.25rem;}
+      #experience .si{padding-top:1rem;}
+      #art .si{padding-bottom:1rem;}
+
+      /* bento grids */
+      .bento{grid-template-columns:1fr!important;}
+      .bc.full{grid-column:1!important;}
+
+      /* about */
+      #about .bento{grid-template-columns:1fr!important;}
+
+      /* projects */
+      .pgrid{grid-template-columns:1fr!important;}
+      .pc{min-height:auto;}
+      .pc[style*="grid-column"]{grid-column:1!important;}
+
+      /* modal */
+      #mp{width:100vw;max-width:100vw;right:0;border-radius:0;}
+      .mb-grid,.mb{grid-template-columns:1fr!important;}
+      .mbc.full{grid-column:1!important;}
+      .mtb{padding:.9rem 1.25rem;}
+      .swg{gap:6px;}
+      .sw{width:26px;height:26px;}
+
+      /* art scroll */
+      .art-item{flex:0 0 160px;}
+      .art-item img{height:140px;}
+
+      /* contact */
+      #contact .bento{grid-template-columns:1fr!important;}
+      #contact .bc[style*="grid-row"]{grid-row:auto!important;}
+
+      /* experience */
+      .exp-header{grid-template-columns:1fr!important;}
+      .exp-header-right{display:none;}
+      .exp-item{grid-template-columns:1fr;gap:.3rem;}
+      .exp-date{text-align:left;}
+
+      /* music button */
+      #music-btn{bottom:1rem;right:1rem;}
+    }
+
+    @media (max-width:480px){
+      .hn{font-size:2.2rem;}
+      .nav-cell a{font-size:.6rem;}
+      .nav-cell{padding:.4rem .7rem;}
+      .tw{width:min(220px,85vw);}
+    }
+
     /* ILLUSTRATED SOFT STYLE */
     /* subtle dot texture on bg sections */
     #about,#art,#experience{
@@ -591,37 +667,37 @@
       <div class="art-panel" id="art-panel">
         <div class="art-scroll">
           <div class="art-item">
-            <img src="./images/furina-3d.png" alt="furina 3d model" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/furina-3d.png" alt="furina 3d model" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">furina 3d</div>
             <div class="art-item-info"><div class="art-name">furina</div><div class="art-year">2026</div><div class="art-note">3D model — Blender</div></div>
           </div>
           <div class="art-item">
-            <img src="./images/girl-with-a-leaf.jpg" alt="girl with a leaf" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/girl-with-a-leaf.jpg" alt="girl with a leaf" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">girl with a leaf</div>
             <div class="art-item-info"><div class="art-name">girl with a leaf</div><div class="art-year">2023</div><div class="art-note">RISD Precollege Design Exhibition</div></div>
           </div>
           <div class="art-item">
-            <img src="./images/lombard-st.png" alt="lombard st." onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/lombard-st.png" alt="lombard st." onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">lombard st.</div>
             <div class="art-item-info"><div class="art-name">lombard st.</div><div class="art-year">2024</div></div>
           </div>
           <div class="art-item">
-            <img src="./images/night-ride.jpg" alt="night ride" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/night-ride.jpg" alt="night ride" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">night ride</div>
             <div class="art-item-info"><div class="art-name">night ride</div><div class="art-year">2024</div></div>
           </div>
           <div class="art-item">
-            <img src="./images/carmen.jpg" alt="carmen" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/carmen.jpg" alt="carmen" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">carmen</div>
             <div class="art-item-info"><div class="art-name">carmen</div><div class="art-year">2024</div></div>
           </div>
           <div class="art-item">
-            <img src="./images/angel.jpg" alt="angel" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/angel.jpg" alt="angel" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">angel</div>
             <div class="art-item-info"><div class="art-name">angel</div><div class="art-year">2024</div></div>
           </div>
           <div class="art-item">
-            <img src="./images/deedee.jpg" alt="deedee" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+            <img src="images/deedee.jpg" alt="deedee" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">deedee</div>
             <div class="art-item-info"><div class="art-name">deedee</div><div class="art-year">2024</div></div>
           </div>
