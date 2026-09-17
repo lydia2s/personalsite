@@ -6,12 +6,16 @@
   <title>Lydia He</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Cpolygon points='3,11 3,23 11,17' fill='%23e87030'/%3E%3Cellipse cx='20' cy='17' rx='11' ry='7.5' fill='%23e87030'/%3E%3Cellipse cx='21' cy='15' rx='6.5' ry='3.8' fill='%23f0a060' opacity='.5'/%3E%3Ccircle cx='28' cy='15' r='2.1' fill='white'/%3E%3Ccircle cx='28.5' cy='15' r='1.2' fill='%23111'/%3E%3C/svg%3E"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg:#e8f4f8; --white:#f5fafc; --bl:#cce8f4; --bm:#7ab8d4;
-      --bd:#2e7ca8; --bi:#1a3f5c; --text:#2a5068; --mu:#80aabf;
+      --bg:#fafbfc; --tint:#eef5f9; --white:#ffffff; --bl:#cce8f4; --bm:#7ab8d4;
+      --bd:#2e7ca8; --bi:#1a3f5c; --text:#26292d; --mu:#5c6066;
+      --accent2:#ff3d61; --accent2-dk:#c81f3f;
       --bdr:1.5px solid #1a3f5c; --font:'Outfit','Segoe UI',sans-serif;
+      --hand:'Caveat','Segoe UI',cursive;
+      --pop:cubic-bezier(.22,1.36,.36,1);
+      --blue-block:#2456d6; --blue-block-lt:#5f8ff2; --ink:#0f1e2e; --pink:#ff3d61;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     html{scroll-behavior:smooth;}
@@ -20,24 +24,61 @@
     #fc{position:fixed;pointer-events:none;z-index:99999;width:34px;height:34px;transform:translate(-50%,-50%);will-change:left,top;}
 
     /* NAV */
-    nav{position:fixed;top:1rem;left:0;right:0;z-index:500;display:flex;justify-content:center;opacity:0;animation:fadeDown .7s .1s ease forwards;pointer-events:none;}
-    .nav-inner{pointer-events:all;display:grid;grid-template-columns:repeat(4,auto);gap:1px;background:rgba(26,63,92,.2);border:var(--bdr);border-radius:8px;overflow:hidden;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
-    .nav-cell{background:rgba(245,250,252,0.92);padding:.5rem 1.4rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
-    .nav-cell:hover{background:var(--bl);}
-    .nav-cell a{font-size:.72rem;color:var(--mu);text-decoration:none;transition:color .2s;font-weight:400;}
-    .nav-cell:hover a{color:var(--bi);}
+    nav{
+      position:fixed;top:0;left:0;right:0;z-index:500;
+      padding:1.6rem 2.75rem;opacity:0;animation:fadeDown .7s .1s ease forwards;pointer-events:none;
+      background:linear-gradient(to bottom,rgba(250,251,252,.94) 55%,rgba(250,251,252,0));
+    }
+    .nav-inner{pointer-events:all;display:flex;align-items:center;justify-content:space-between;max-width:1040px;margin:0 auto;}
+    .nav-mark{font-family:var(--font);font-weight:800;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);text-decoration:none;}
+    .nav-links{display:flex;gap:1.9rem;}
+    .nav-links a{font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s;position:relative;padding-bottom:3px;}
+    .nav-links a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--blue-block);transition:width .25s var(--pop);}
+    .nav-links a:hover{color:var(--blue-block);}
+    .nav-links a:hover::after{width:100%;}
 
     /* HERO */
-    #hero{width:100%;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 8rem;gap:3rem;overflow:hidden;}
+    #hero{position:relative;width:100%;height:100vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:0 8rem;gap:3rem;overflow:hidden;}
     .hl{opacity:0;animation:fadeUp .8s .3s ease forwards;}
-    .hn{font-size:clamp(3rem,5.5vw,5rem);font-weight:600;color:var(--bi);line-height:1;letter-spacing:-.03em;}
-    .hn .ac{color:var(--bd);font-weight:300;font-style:italic;}
-    .hs{margin-top:1.1rem;font-size:.9rem;color:var(--mu);line-height:1.7;max-width:310px;}
-    .ha{margin-top:2rem;display:flex;gap:1rem;align-items:center;}
-    .bp{font-family:var(--font);font-size:.78rem;font-weight:600;color:var(--bi);background:white;border:2px solid var(--bi);border-radius:6px;padding:.65rem 1.3rem;text-decoration:none;transition:background .2s,color .2s,transform .2s;display:inline-block;}
-    .bp:hover{background:var(--bi);color:white;transform:translateY(-1px);}
-    .bg2{font-family:var(--font);font-size:.78rem;font-weight:600;color:var(--bi);text-decoration:none;display:flex;align-items:center;gap:.35rem;border:2px solid var(--bi);border-radius:6px;padding:.65rem 1.1rem;background:white;transition:background .2s,color .2s,gap .2s;}
-    .bg2:hover{background:var(--bi);color:white;gap:.55rem;}
+    .hn{font-size:clamp(3rem,5.5vw,5rem);font-weight:800;color:var(--ink);line-height:.98;letter-spacing:-.04em;}
+    .hn .ac{
+      background:linear-gradient(180deg,#8fb4f7 0%,#2456d6 55%,#173e9e 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      font-weight:900;font-style:normal;
+      filter:drop-shadow(4px 5px 0 rgba(15,30,46,.14));
+      display:inline-block;
+    }
+    .hero-kicker{
+      display:inline-flex;align-items:center;gap:.5rem;font-family:var(--hand);font-size:1.3rem;font-weight:700;
+      color:var(--blue-block);margin-bottom:1.4rem;transform:rotate(-1.5deg);
+    }
+    .hero-role{margin-top:1rem;font-size:clamp(1.05rem,1.8vw,1.35rem);font-weight:700;color:var(--blue-block);letter-spacing:-.015em;max-width:400px;line-height:1.3;}
+    .hero-role strong{color:var(--ink);}
+    .hs{margin-top:.7rem;font-size:.9rem;color:var(--text);line-height:1.7;max-width:310px;}
+    .ha{margin-top:2rem;display:flex;gap:2.25rem;align-items:center;flex-wrap:wrap;}
+    .bp,.bg2{
+      font-family:var(--font);font-weight:800;font-size:1rem;letter-spacing:-.01em;
+      color:var(--blue-block);background:none;border:none;padding:0;text-decoration:none;
+      display:inline-flex;align-items:center;gap:.4rem;position:relative;z-index:0;
+      transition:color .2s,transform .2s;
+      filter:drop-shadow(2px 4px 0 rgba(60,60,60,.28));
+    }
+    .bp::after,.bg2::after{
+      content:attr(data-label);position:absolute;left:0;top:0;white-space:nowrap;
+      color:#fff;-webkit-text-stroke:5px #fff;paint-order:stroke fill;z-index:-1;
+    }
+    .bp .ulbar,.bg2 .ulbar{position:absolute;left:0;bottom:-6px;width:0;height:2.5px;background:var(--blue-block);transition:width .25s var(--pop);}
+    .bp:hover,.bg2:hover{transform:translateX(3px) rotate(-1deg);}
+    .bp:hover .ulbar,.bg2:hover .ulbar{width:100%;}
+
+    /* STICKER CUTOUT — extended to view/toggle/contact/modal links */
+    .ob,.art-toggle,.exp-toggle,.clink.p,.ml{position:relative;z-index:0;filter:drop-shadow(2px 3px 0 rgba(60,60,60,.25));}
+    .ob::after,.art-toggle::after,.exp-toggle::after,.clink.p::after,.ml::after{
+      content:attr(data-label);position:absolute;left:0;top:0;white-space:nowrap;
+      color:#fff;-webkit-text-stroke:4.5px #fff;paint-order:stroke fill;z-index:-1;pointer-events:none;
+    }
+    .ob .ulbar,.art-toggle .ulbar,.exp-toggle .ulbar,.clink.p .ulbar,.ml .ulbar{position:absolute;left:0;bottom:-4px;width:0;height:2px;background:currentColor;transition:width .25s var(--pop);}
+    .ob:hover .ulbar,.art-toggle:hover .ulbar,.exp-toggle:hover .ulbar,.clink.p:hover .ulbar,.ml:hover .ulbar{width:100%;}
     .hr2{display:flex;align-items:center;justify-content:center;height:100%;opacity:0;animation:fadeUp .8s .5s ease forwards;}
     .gb-btn{cursor:none!important;transition:transform .1s,box-shadow .1s;}
     .gb-btn:active,.gb-btn.pressed{transform:scale(0.88);box-shadow:0 1px 3px rgba(0,0,0,.3),inset 0 1px 2px rgba(255,255,255,.2);}
@@ -118,6 +159,23 @@
       background:linear-gradient(135deg,rgba(255,255,255,.22) 0%,transparent 50%);
       border-radius:3px;
     }
+    .seaweed{animation:sway 4.2s ease-in-out infinite;transform-box:view-box;}
+    .seaweed.sw2{animation-duration:3.6s;animation-delay:.3s;}
+    .seaweed.sw3{animation-duration:5s;animation-delay:.6s;}
+    .seaweed.sw4{animation-duration:3.9s;animation-delay:.9s;}
+    @keyframes sway{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(5deg);}}
+    .coral{animation:coralSway 5.4s ease-in-out infinite;transform-box:view-box;}
+    .coral.c2{animation-duration:4.7s;animation-delay:.5s;}
+    .coral.c3{animation-duration:5s;animation-delay:.25s;}
+    @keyframes coralSway{0%,100%{transform:rotate(-1.5deg);}50%{transform:rotate(1.5deg);}}
+    .bubble{fill:rgba(255,255,255,.7);stroke:#0f1e2e;stroke-width:1.1;animation:bubbleRise var(--dur,6s) linear infinite;animation-delay:var(--d,0s);transform-box:fill-box;transform-origin:center;}
+    @keyframes bubbleRise{
+      0%{transform:translateY(0) translateX(0);opacity:0;}
+      8%{opacity:.8;}
+      88%{opacity:.45;}
+      100%{transform:translateY(-260px) translateX(9px);opacity:0;}
+    }
+    .fish{will-change:transform;}
     .tb{display:none;}
     #ac{width:100%;height:100%;border-radius:14px;display:block;}
     .tb{position:absolute;inset:0;border:1.5px solid rgba(180,220,240,.55);border-radius:14px;pointer-events:none;box-shadow:inset 0 0 50px rgba(200,230,248,.25),0 24px 64px rgba(46,124,168,.1);}
@@ -126,61 +184,165 @@
     /* BENTO BASE */
     .bento{display:grid;gap:1px;background:rgba(26,63,92,.2);border:var(--bdr);border-radius:12px;overflow:hidden;}
     .bc{background:var(--white);padding:2rem 2.25rem;}
-    .bc.bg{background:var(--bg);}
+    .bc.bg{background:var(--tint);}
     section{position:relative;z-index:1;}
-    .si{max-width:1040px;margin:0 auto;padding:4rem 3rem;}
+    .si{max-width:1040px;margin:0 auto;padding:5.5rem 3rem;}
+
+    /* EDITORIAL HEAD */
+    .ed-head{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;column-gap:1rem;margin-bottom:3rem;padding-bottom:1.15rem;border-bottom:1.5px solid rgba(15,30,46,.14);}
+    .ed-tag{font-size:.68rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);}
+    .ed-num{
+      font-family:var(--font);font-weight:900;font-size:clamp(2.2rem,4.6vw,3.4rem);
+      background:linear-gradient(180deg,#8fb4f7 0%,#2456d6 55%,#173e9e 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      letter-spacing:-.03em;line-height:.8;text-align:center;filter:drop-shadow(3px 3px 0 rgba(15,30,46,.13));
+    }
+    .ed-cat{font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-align:right;}
+    @media(max-width:640px){
+      .ed-head{grid-template-columns:1fr;justify-items:center;text-align:center;gap:.5rem;margin-bottom:2.25rem;}
+      .ed-cat{text-align:center;}
+    }
 
     /* REVEAL */
-    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--pop),transform .8s var(--pop);}
     .reveal.visible{opacity:1;transform:translateY(0);}
-    .reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .7s ease,transform .7s ease;}
-    .reveal-left.visible{opacity:1;transform:translateX(0);}
-    .reveal-right{opacity:0;transform:translateX(28px);transition:opacity .7s ease,transform .7s ease;}
-    .reveal-right.visible{opacity:1;transform:translateX(0);}
-    .reveal-scale{opacity:0;transform:scale(.96);transition:opacity .6s ease,transform .6s ease;}
+    .reveal-left{opacity:0;transform:translateX(-34px) rotate(-1.2deg);transition:opacity .8s var(--pop),transform .8s var(--pop);}
+    .reveal-left.visible{opacity:1;transform:translateX(0) rotate(0);}
+    .reveal-right{opacity:0;transform:translateX(34px) rotate(1.2deg);transition:opacity .8s var(--pop),transform .8s var(--pop);}
+    .reveal-right.visible{opacity:1;transform:translateX(0) rotate(0);}
+    .reveal-scale{opacity:0;transform:scale(.9);transition:opacity .7s var(--pop),transform .7s var(--pop);}
     .reveal-scale.visible{opacity:1;transform:scale(1);}
-    .reveal-children>*{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease;}
-    .reveal-children.visible>*{opacity:1;transform:translateY(0);}
-    .reveal-children.visible>*:nth-child(1){transition-delay:.05s;}
-    .reveal-children.visible>*:nth-child(2){transition-delay:.13s;}
-    .reveal-children.visible>*:nth-child(3){transition-delay:.21s;}
-    .reveal-children.visible>*:nth-child(4){transition-delay:.29s;}
+    .reveal-children>*{opacity:0;transform:translateY(26px) scale(.95);transition:opacity .7s var(--pop),transform .7s var(--pop);}
+    .reveal-children.visible>*{opacity:1;transform:translateY(0) scale(1);}
+    .reveal-children.visible>*:nth-child(1){transition-delay:.04s;}
+    .reveal-children.visible>*:nth-child(2){transition-delay:.11s;}
+    .reveal-children.visible>*:nth-child(3){transition-delay:.18s;}
+    .reveal-children.visible>*:nth-child(4){transition-delay:.25s;}
+    .reveal-children.visible>*:nth-child(5){transition-delay:.32s;}
+    .reveal-children.visible>*:nth-child(6){transition-delay:.39s;}
+
+    /* SCRIBBLES */
+    .scribble-cue{
+      position:absolute;left:50%;bottom:2.4rem;transform:translateX(-50%);
+      display:flex;flex-direction:column;align-items:center;gap:.15rem;
+      opacity:0;transition:opacity 1s ease .6s;pointer-events:none;z-index:3;
+    }
+    .scribble-cue.visible{opacity:.85;}
+    .scribble-cue .scribble-text{
+      font-family:var(--hand);font-size:1.35rem;color:var(--bi);opacity:.72;
+      transform:rotate(-2deg);white-space:nowrap;
+    }
+    .scribble-cue svg{width:30px;height:54px;animation:bob 2.1s ease-in-out infinite;}
+    .scribble-cue path{fill:none;stroke:var(--bi);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;opacity:.6;}
+    @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(9px);}}
+
+    .scribble-inline{position:relative;display:inline-block;}
+    .scribble-note{
+      font-family:var(--hand);font-size:1.3rem;color:var(--accent2-dk);
+      display:inline-flex;align-items:center;gap:.5rem;opacity:0;
+      transition:opacity .9s ease .2s,transform .9s var(--pop) .2s;transform:translateY(10px) rotate(-1deg);
+    }
+    .scribble-note.visible{opacity:.85;transform:translateY(0) rotate(-1deg);}
+    .scribble-note svg{width:46px;height:30px;flex-shrink:0;}
+    .scribble-note path{fill:none;stroke:var(--pink);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;}
+    .scribble-note.rev{flex-direction:row-reverse;}
+
+    @media(prefers-reduced-motion:reduce){
+      .scribble-cue svg{animation:none;}
+    }
+    @media(max-width:640px){
+      .scribble-cue{display:none;}
+    }
+
+    /* DOODLES — stars & hand-drawn accents */
+    .doodle-star{display:inline-flex;vertical-align:middle;flex-shrink:0;}
+    .doodle-star svg{display:block;}
+    .doodle-star.pink{transform:rotate(-8deg);}
+    .doodle-star.blue{transform:rotate(12deg);}
+    .doodle-underline{display:block;margin-top:.3rem;}
+    .doodle-underline path{fill:none;stroke-linecap:round;stroke-linejoin:round;}
+    @media(max-width:640px){
+      .doodle-star.hide-sm{display:none;}
+    }
+
+    /* BOOK INTRO */
+    #bookIntro{position:fixed;inset:0;z-index:9999;perspective:2400px;}
+    #bookIntro .page{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:left center;transition:transform 1.05s cubic-bezier(.6,0,.3,1);cursor:pointer;}
+    #bookIntro .page-front{
+      position:absolute;inset:0;backface-visibility:hidden;overflow:hidden;
+      background:linear-gradient(135deg,var(--bi) 0%,var(--bd) 55%,var(--bm) 100%);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.9rem;
+      box-shadow:10px 0 40px rgba(0,0,0,.28);
+    }
+    #bookIntro.opening .page{transform:rotateY(-108deg);}
+    #bookIntro.opening{opacity:0;transition:opacity .5s ease .65s;pointer-events:none;}
+    #bookIntro.hidden{display:none;}
+    .book-kicker{font-family:var(--hand);font-size:1.2rem;color:#fff;opacity:.75;letter-spacing:.02em;}
+    .book-title{font-family:var(--font);font-weight:700;font-size:clamp(3rem,9vw,5.5rem);color:#fff;line-height:.95;text-align:center;letter-spacing:-.02em;}
+    .book-sub{font-size:.9rem;color:#eaf4fa;opacity:.85;text-align:center;max-width:280px;padding:0 1.5rem;}
+    .book-hint{margin-top:1.5rem;display:flex;flex-direction:column;align-items:center;gap:.3rem;color:#fff;opacity:.8;animation:bhpulse 1.8s ease-in-out infinite;}
+    .book-hint span{font-family:var(--hand);font-size:1.15rem;}
+    .book-hint svg{width:34px;height:20px;}
+    .book-hint path{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+    @keyframes bhpulse{0%,100%{transform:translateX(0);opacity:.7;}50%{transform:translateX(6px);opacity:1;}}
+    .book-corner{position:absolute;bottom:0;right:0;width:0;height:0;border-style:solid;border-width:0 0 46px 46px;border-color:transparent transparent rgba(255,255,255,.18) transparent;}
+    @media(prefers-reduced-motion:reduce){#bookIntro{display:none;}}
+    @media(max-width:640px){.book-title{font-size:clamp(2.6rem,14vw,3.6rem);}}
 
     /* ABOUT */
     #about .bento{grid-template-columns:1.3fr 1fr;}
-    .ab-bio h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:600;color:var(--bi);letter-spacing:-.02em;margin-bottom:1rem;line-height:1.15;}
+    .ab-bio h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;color:var(--ink);letter-spacing:-.025em;margin-bottom:1rem;line-height:1.15;}
     .ab-bio p{font-size:.86rem;line-height:1.85;color:var(--text);}
+    .ab-bio p strong{color:var(--ink);font-weight:800;}
     .ab-bio p+p{margin-top:.8rem;}
-    .bc-label{font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);margin-bottom:.75rem;display:block;}
+    .bc-label{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:.75rem;display:block;}
     .stags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1rem;}
-    .stag{font-size:.68rem;padding:.25rem .6rem;border-radius:3px;color:var(--bi);border:1px solid rgba(26,63,92,.22);background:transparent;transition:background .2s;}
-    .stag:hover{background:var(--bl);}
+    .stag{font-size:.68rem;padding:.25rem .5rem;border-radius:0;color:var(--blue-block);font-weight:700;letter-spacing:.02em;border:none;background:transparent;transition:background .2s;}
+    .stag:hover{background:rgba(36,86,214,.08);}
 
     /* PROJECT SECTIONS */
-    .proj-section{display:flex;flex-direction:column;gap:0;margin-bottom:2.5rem;}
+    .proj-section{display:flex;flex-direction:column;gap:0;margin-bottom:3.75rem;}
     .proj-section:last-child{margin-bottom:0;}
-    .proj-section-label{font-size:.72rem;font-weight:400;letter-spacing:.01em;color:var(--mu);margin-bottom:.75rem;font-style:italic;}
+    .proj-section-label{font-size:.68rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);margin-bottom:.75rem;}
 
     /* PROJECTS */
     #projects{background:var(--bg);}
-    .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(26,63,92,.18);border:var(--bdr);border-radius:12px;overflow:hidden;}
-    .pc{background:var(--white);padding:2rem 2.25rem;position:relative;transition:background .28s;display:flex;flex-direction:column;justify-content:space-between;gap:1rem;overflow:hidden;}
-    .pc:hover{background:#f0f8fc;}
-    .pt{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:.5rem;}
-    .pt.game{color:var(--bd);}
-    .pt.design{color:#8a6aaa;}
-    .pti{font-size:1.25rem;font-weight:600;color:var(--bi);line-height:1.15;letter-spacing:-.01em;margin-bottom:.4rem;}
-    .pd{font-size:.8rem;color:var(--mu);line-height:1.65;margin-bottom:.85rem;}
-    .ptags{display:flex;flex-wrap:wrap;gap:.28rem;}
-    .ptag{font-size:.58rem;padding:.12rem .45rem;border-radius:2px;border:1px solid rgba(26,63,92,.18);color:var(--bi);}
-    .pc-bot{display:flex;justify-content:space-between;align-items:center;}
-    .ob{font-family:var(--font);font-size:.7rem;font-weight:500;color:var(--bd);border:1px solid rgba(46,124,168,.35);border-radius:4px;padding:.4rem .85rem;transition:all .22s cubic-bezier(.34,1.56,.64,1);white-space:nowrap;}
-    .ob:hover{background:var(--bd);color:white;transform:translateY(-1px);}
-    .bwip{font-size:.55rem;font-weight:500;padding:.1rem .38rem;border-radius:3px;background:rgba(232,160,96,.1);color:#c07830;border:1px solid rgba(232,160,96,.25);margin-left:.4rem;vertical-align:middle;}
-    .pc::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:var(--bl);transition:background .3s;}
-    .pc:hover::before{background:var(--bm);}
-    .pc.pu::before{background:rgba(138,106,170,.3);}
-    .pc.pu:hover::before{background:#8a6aaa;}
+    .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:2.75rem 2.25rem;}
+    .pc{
+      background:var(--white);position:relative;z-index:1;border-radius:18px;
+      border:var(--bdr);overflow:hidden;cursor:pointer;min-width:0;max-width:100%;
+      transition:transform .3s var(--pop),box-shadow .3s var(--pop);
+      display:flex;flex-direction:column;
+    }
+    .pc::before{
+      content:'';position:absolute;inset:0;background:var(--bl);border-radius:18px;
+      transform:rotate(-2.5deg);z-index:-2;transition:transform .3s var(--pop);
+    }
+    .pc::after{
+      content:'';position:absolute;inset:0;background:var(--white);border:var(--bdr);border-radius:18px;
+      transform:rotate(1.4deg);z-index:-1;transition:transform .3s var(--pop);
+    }
+    .pc.pu::before{background:rgba(255,61,97,.22);}
+    .pc:hover{transform:translateY(-5px) rotate(-.6deg);box-shadow:0 20px 40px rgba(26,63,92,.16);}
+    .pc:hover::before{transform:rotate(-4.5deg);}
+    .pc:hover::after{transform:rotate(2.8deg);}
+    .pc-img{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:linear-gradient(135deg,var(--bl),var(--bm));flex-shrink:0;}
+    .pc-img::after{content:'';position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 55%,var(--white) 100%);pointer-events:none;z-index:1;}
+    .pc-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s var(--pop);}
+    .pc:hover .pc-img img{transform:scale(1.055);}
+    .pc-img-ph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;font-family:var(--hand);font-size:1.5rem;color:var(--bi);opacity:.5;}
+    .pc-top{padding:1.4rem 1.6rem 0;display:flex;flex-direction:column;gap:.55rem;flex:1;min-width:0;}
+    .pt{font-size:.58rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--ink);overflow-wrap:break-word;}
+    .pt.game{color:var(--accent2);}
+    .pt.design{color:var(--pink);}
+    .pti{font-size:1.2rem;font-weight:700;color:var(--bi);line-height:1.15;letter-spacing:-.015em;overflow-wrap:break-word;}
+    .pd{font-size:.78rem;color:var(--text);line-height:1.55;overflow-wrap:break-word;word-break:break-word;}
+    .ptags{display:flex;flex-wrap:wrap;gap:.28rem;min-width:0;}
+    .ptag{font-size:.58rem;padding:.12rem .35rem;border-radius:0;border:none;color:var(--blue-block);font-weight:700;letter-spacing:.02em;}
+    .pc-bot{display:flex;justify-content:space-between;align-items:center;padding:.9rem 1.6rem 1.6rem;min-width:0;}
+    .ob{font-family:var(--font);font-size:.7rem;font-weight:800;letter-spacing:.03em;text-transform:uppercase;color:var(--blue-block);border:none;background:none;padding:0;position:relative;transition:transform .22s var(--pop);white-space:nowrap;display:inline-block;}
+    .ob:hover{transform:translateX(3px);}
+    .bwip{font-size:.55rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.1rem .4rem;border-radius:3px;background:rgba(255,61,97,.12);color:var(--accent2-dk);border:1px solid rgba(255,61,97,.3);margin-left:.4rem;vertical-align:middle;}
     .pc .ripple{position:absolute;border-radius:50%;background:rgba(46,124,168,.1);transform:scale(0);animation:ripple .55s ease-out forwards;pointer-events:none;}
     @keyframes ripple{to{transform:scale(4);opacity:0;}}
 
@@ -189,33 +351,46 @@
     .art-box{border:var(--bdr);border-radius:12px;overflow:hidden;}
     .art-header{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(26,63,92,.2);}
     .art-header-cell{background:var(--white);padding:1.75rem 2.25rem;}
-    .art-header-cell.bg{background:var(--bg);display:flex;flex-direction:column;justify-content:center;}
+    .art-header-cell.bg{background:var(--tint);display:flex;flex-direction:column;justify-content:center;}
     .art-toggle-row{display:flex;align-items:center;justify-content:space-between;}
-    .art-title{font-size:1.8rem;font-weight:600;color:var(--bi);letter-spacing:-.02em;}
+    .art-title{font-size:1.8rem;font-weight:700;color:var(--bi);letter-spacing:-.02em;}
     .art-toggle{
-      font-family:var(--font);font-size:.7rem;font-weight:500;
-      color:var(--bd);border:1px solid rgba(46,124,168,.35);
-      border-radius:4px;padding:.4rem .85rem;
-      background:transparent;transition:all .22s;
+      font-family:var(--font);font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
+      color:var(--blue-block);border:none;background:none;padding:0;position:relative;
+      transition:transform .22s var(--pop);
       display:flex;align-items:center;gap:.4rem;
     }
-    .art-toggle:hover{background:var(--bd);color:white;}
+    .art-toggle:hover{transform:translateX(3px);}
     .art-toggle .chevron{display:inline-block;transition:transform .3s ease;font-style:normal;}
     .art-toggle.open .chevron{transform:rotate(180deg);}
     .art-panel{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.22,1,.36,1);background:var(--white);border-top:0px solid var(--bi);}
-    .art-panel.open{max-height:360px;border-top:1px solid rgba(26,63,92,.15);}
+    .art-panel.open{max-height:900px;border-top:1px solid rgba(26,63,92,.15);}
     .art-scroll{display:flex;gap:12px;overflow-x:auto;background:var(--white);padding:1.25rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .asset-group{background:var(--white);}
+    .asset-group+.asset-group{border-top:1px solid rgba(26,63,92,.14);}
+    .asset-group-title{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--bi);padding:1rem 1.25rem 0;display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;}
+    .asset-group-title .asset-group-sub{font-size:.62rem;font-weight:500;letter-spacing:.02em;text-transform:none;color:var(--mu);}
+    .asset-group-link{color:var(--bi);text-decoration:none;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s;}
+    .asset-group-link:hover{color:var(--blue-block);border-color:var(--blue-block);}
     .art-scroll::-webkit-scrollbar{display:none;}
-    .art-item{flex:0 0 210px;scroll-snap-align:start;background:var(--white);position:relative;overflow:hidden;border-radius:10px;border:1.5px solid rgba(26,63,92,.12);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;}
+    .art-item{flex:0 0 auto;scroll-snap-align:start;background:var(--white);position:relative;overflow:hidden;border-radius:10px;border:var(--bdr);transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .3s ease;display:flex;flex-direction:column;}
     .art-item:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(26,63,92,.12);}
-    .art-item img{width:100%;height:180px;object-fit:cover;display:block;transition:transform .4s ease;border-radius:8px 8px 0 0;}
+    .art-item img{height:180px;width:auto;max-width:300px;min-width:130px;object-fit:cover;background:var(--tint);display:block;transition:transform .4s ease;border-radius:8px 8px 0 0;cursor:zoom-in;}
     .art-item:hover img{transform:scale(1.04);}
-    .art-item-info{padding:.65rem .9rem .8rem;}
+    .art-item-info{padding:.65rem .9rem .8rem;min-width:150px;}
     .art-name{font-size:.72rem;font-weight:500;color:var(--bi);}
     .art-year{font-size:.6rem;color:var(--mu);margin-top:.1rem;}
     .art-note{font-size:.56rem;color:var(--bm);margin-top:.08rem;letter-spacing:.03em;}
-    .art-ph{width:100%;height:180px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--mu);letter-spacing:.06em;text-transform:uppercase;border-radius:8px 8px 0 0;}
-    .art-meta{font-size:.83rem;color:var(--mu);line-height:1.7;margin-top:.35rem;}
+    .art-ph{width:210px;height:180px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:.6rem;color:var(--mu);letter-spacing:.06em;text-transform:uppercase;border-radius:8px 8px 0 0;}
+    .art-meta{font-size:.83rem;color:var(--text);line-height:1.7;margin-top:.35rem;}
+
+    /* LIGHTBOX — full-image view for asset gallery items */
+    .lb{position:fixed;inset:0;z-index:1000;background:rgba(10,20,32,.88);display:flex;align-items:center;justify-content:center;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .25s ease;padding:5vh 4vw;}
+    .lb.open{opacity:1;pointer-events:all;}
+    .lb img{max-width:92vw;max-height:82vh;object-fit:contain;border-radius:8px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:#f8fbfd;}
+    .lb-cap{margin-top:1rem;color:#e8f0f6;font-size:.82rem;letter-spacing:.02em;text-align:center;}
+    .lb-close{position:absolute;top:22px;right:26px;width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .18s;}
+    .lb-close:hover{background:rgba(255,255,255,.2);}
 
     /* MODAL */
     .mo{position:fixed;inset:0;z-index:800;background:rgba(10,28,44,.32);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s ease;}
@@ -223,33 +398,47 @@
     .mp{position:fixed;top:4vh;right:-110%;bottom:4vh;width:min(660px,94vw);z-index:900;background:#f8fbfd;border-left:var(--bdr);border-top:var(--bdr);border-bottom:var(--bdr);border-radius:12px 0 0 12px;overflow-y:auto;overflow-x:hidden;padding:0;transition:right .42s cubic-bezier(.22,1,.36,1);}
     .mp.open{right:0;}
     .mtb{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1.5px solid #1a3f5c;position:sticky;top:0;background:#f8fbfd;z-index:10;}
-    .mtbl{font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);}
+    .mtbl{font-size:.6rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);}
     .mcl{width:26px;height:26px;border-radius:50%;border:var(--bdr);background:transparent;color:var(--bi);font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:background .18s,color .18s;}
     .mcl:hover{background:var(--bi);color:white;}
     .mb{padding:.75rem;display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bi);}
     .mbc{background:#f8fbfd;padding:1.25rem 1.4rem;transition:background .2s;border:1.5px solid #1a3f5c;border-radius:8px;margin:4px;}
     .mbc:hover{background:#eef6fb;}
     .mbc.full{grid-column:1/-1;}
-    .cl{font-size:.56rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin-bottom:.4rem;display:block;}
-    .ct{font-size:1.85rem;font-weight:600;color:var(--bi);letter-spacing:-.025em;line-height:1.05;}
+    .cl{font-size:.56rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);margin-bottom:.4rem;display:block;}
+    .sec-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.65rem;}
+    .sec-num{
+      font-family:var(--font);font-weight:900;font-size:.82rem;color:#fff;
+      width:1.7rem;height:1.7rem;min-width:1.7rem;border-radius:6px;
+      display:flex;align-items:center;justify-content:center;
+      transform:rotate(-4deg);box-shadow:2px 2px 0 var(--ink);
+    }
+    .sec-title{font-family:var(--font);font-weight:800;font-size:1.05rem;color:var(--ink);letter-spacing:-.015em;line-height:1.2;}
+    .ct{font-size:1.85rem;font-weight:700;color:var(--bi);letter-spacing:-.025em;line-height:1.05;}
     .cv{font-size:.82rem;color:var(--bi);font-weight:400;}
     .cb{font-size:.82rem;color:var(--text);line-height:1.9;}
     .mbc.full>.cb-body>.cb{font-size:.88rem;line-height:2;}
     .cb+.cb{margin-top:.55rem;}
     .cb-body{display:flex;flex-direction:column;gap:.15rem;}
-    .cb-bullet{font-size:.8rem;color:var(--mu);line-height:1.75;padding-left:.9rem;position:relative;}
+    .cb-bullet{font-size:.8rem;color:var(--text);line-height:1.75;padding-left:.9rem;position:relative;}
     .cb-bullet::before{content:"–";position:absolute;left:0;color:var(--bm);font-weight:400;}
-    .ml{display:inline-flex;align-items:center;gap:.4rem;font-size:.72rem;font-weight:500;color:var(--bd);border:1.5px solid var(--bd);border-radius:4px;padding:.45rem .9rem;text-decoration:none;transition:background .18s,color .18s;margin-top:.5rem;}
-    .ml:hover{background:var(--bd);color:white;}
+    .ml{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:800;letter-spacing:-.005em;color:var(--blue-block);border:none;background:none;padding:0;text-decoration:none;position:relative;transition:transform .2s var(--pop);margin-top:.5rem;}
+    .ml:hover{transform:translateX(3px);background:none;color:var(--blue-block);}
+    .mbc.full.link-top{background:#eaf1ff;border:2px solid var(--blue-block);box-shadow:3px 4px 0 rgba(36,86,214,.15);padding:1.1rem 1.4rem;}
+    .mbc.full.link-top:hover{background:#eaf1ff;}
+    .mbc.full.link-top .cl{color:var(--blue-block);}
+    .ml.big{font-size:1.1rem;gap:.5rem;margin-top:.3rem;}
+    .ml.big::after{-webkit-text-stroke-width:6px;}
+    @media (max-width:640px){.ml.big{font-size:.95rem;}}
     .mtags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.5rem;}
-    .mti{font-size:.63rem;padding:.18rem .5rem;border-radius:3px;border:1px solid rgba(26,63,92,.22);color:var(--bi);}
+    .mti{font-size:.63rem;padding:.18rem .4rem;border-radius:0;border:none;color:var(--blue-block);font-weight:700;letter-spacing:.02em;}
     .swg{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem;}
     .sw{width:26px;height:26px;border-radius:3px;border:1px solid rgba(0,0,0,.1);}
     .cb strong{color:var(--bi);font-weight:600;}
     /* QUOTE BLOCK */
     .mbc-quote{
       grid-column:1/-1;
-      background:var(--bg);
+      background:var(--tint);
       padding:1.75rem 2.25rem;
       border:1.5px solid #1a3f5c;
       border-radius:8px;
@@ -308,6 +497,25 @@
     }
     .ss-placeholder span:first-child{font-size:2rem;opacity:.2;}
     .ss-placeholder span:last-child{font-size:.58rem;letter-spacing:.1em;color:#7ab8d4;text-transform:uppercase;}
+    .ss-placeholder-intent{
+      background:repeating-linear-gradient(135deg,var(--tint),var(--tint) 10px,#e4eef4 10px,#e4eef4 20px);
+      border:2px dashed rgba(46,124,168,.35);
+    }
+    .ss-placeholder-intent span:first-child{font-size:2.2rem;opacity:.55;}
+    .ss-placeholder-intent span:last-child{color:var(--bd);font-weight:600;text-align:center;padding:0 1.5rem;}
+
+    /* POST-IT */
+    .postit{
+      grid-column:1/-1;background:#ffe3e8;border:1px solid rgba(15,30,46,.12);border-radius:2px;
+      padding:1.5rem 1.7rem 1.4rem;transform:rotate(-1.4deg);
+      box-shadow:3px 6px 14px rgba(15,30,46,.16);position:relative;
+      font-family:var(--hand);font-size:1.3rem;line-height:1.4;color:#7a2236;
+    }
+    .postit::before{
+      content:'';position:absolute;top:-11px;left:50%;transform:translateX(-50%) rotate(-6deg);
+      width:38px;height:15px;background:rgba(255,61,97,.55);border-radius:2px;box-shadow:0 2px 5px rgba(0,0,0,.15);
+    }
+    .postit-label{display:block;font-family:var(--font);font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#b8324f;margin-bottom:.4rem;}
     .ss-btn{
       position:absolute;top:50%;transform:translateY(-50%);
       width:26px;height:26px;border-radius:4px;
@@ -352,17 +560,26 @@
     .cbento{display:grid;grid-template-columns:1.4fr 1fr;grid-template-rows:auto auto;gap:1px;background:rgba(26,63,92,.18);border:var(--bdr);border-radius:12px;overflow:hidden;}
     .cc{background:var(--white);padding:2.5rem 2.75rem;}
     .cc.big{grid-row:span 2;display:flex;flex-direction:column;justify-content:space-between;}
-    .cc h2{font-size:clamp(2rem,4vw,3rem);font-weight:600;color:var(--bi);letter-spacing:-.03em;line-height:1.05;}
-    .cc h2 em{font-style:italic;font-weight:300;color:var(--bd);}
-    .cc p{font-size:.83rem;color:var(--mu);line-height:1.75;}
+    .cc h2{font-size:clamp(2rem,4vw,3rem);font-weight:800;color:var(--ink);letter-spacing:-.035em;line-height:1.02;}
+    .cc h2 em{
+      font-style:normal;font-weight:900;
+      background:linear-gradient(180deg,#8fb4f7 0%,#2456d6 55%,#173e9e 100%);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+      filter:drop-shadow(3px 4px 0 rgba(15,30,46,.14));display:inline-block;
+    }
+    .cc p{font-size:.83rem;color:var(--text);line-height:1.75;}
     .clinks{display:flex;flex-direction:column;gap:0;}
     .clink{font-size:.78rem;color:var(--bd);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--bl);display:flex;justify-content:space-between;align-items:center;transition:color .22s,border-color .22s;}
     .clink:last-child{border-bottom:none;}
     .clink:hover{color:var(--bi);border-color:var(--bm);}
     .clink .arr{font-size:.7rem;color:var(--mu);transition:transform .2s;}
     .clink:hover .arr{transform:translate(2px,-2px);}
-    .clink.p{margin-top:1.25rem;padding:.65rem 1.1rem;background:var(--bd);color:white;border:none;border-radius:5px;justify-content:center;font-weight:500;transition:background .22s;}
-    .clink.p:hover{background:var(--bi);}
+    .clink.p{
+      margin-top:1.25rem;padding:0;background:none;border:none;justify-content:flex-start;
+      font-weight:800;font-size:1.1rem;color:var(--blue-block);position:relative;display:inline-flex;
+      transition:transform .22s var(--pop);
+    }
+    .clink.p:hover{background:none;transform:translateX(3px);}
 
     footer{background:var(--bg);border-top:1px solid var(--bl);padding:1.4rem 3rem;}
     footer span{font-size:.63rem;color:var(--mu);}
@@ -373,24 +590,23 @@
     .exp-box{border:var(--bdr);border-radius:12px;overflow:hidden;}
     .exp-header{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(26,63,92,.18);}
     .exp-header-left{background:var(--white);padding:1.75rem 2.25rem;display:flex;align-items:center;justify-content:space-between;}
-    .exp-header-right{background:var(--bg);padding:1.75rem 2.25rem;display:flex;flex-direction:column;justify-content:center;}
-    .exp-title{font-size:1.8rem;font-weight:600;color:var(--bi);letter-spacing:-.02em;}
-    .exp-meta{font-size:.83rem;color:var(--mu);line-height:1.7;margin-top:.35rem;}
+    .exp-header-right{background:var(--tint);padding:1.75rem 2.25rem;display:flex;flex-direction:column;justify-content:center;}
+    .exp-title{font-size:1.8rem;font-weight:700;color:var(--bi);letter-spacing:-.02em;}
+    .exp-meta{font-size:.83rem;color:var(--text);line-height:1.7;margin-top:.35rem;}
     .exp-toggle{
-      font-family:var(--font);font-size:.68rem;font-weight:500;
-      color:var(--bd);border:1px solid rgba(46,124,168,.3);
-      border-radius:4px;padding:.32rem .75rem;
-      background:transparent;transition:all .22s;
+      font-family:var(--font);font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.03em;
+      color:var(--blue-block);border:none;background:none;padding:0;position:relative;
+      transition:transform .22s var(--pop);
       display:flex;align-items:center;gap:.35rem;
     }
-    .exp-toggle:hover{background:var(--bd);color:white;}
+    .exp-toggle:hover{transform:translateX(3px);}
     .exp-panel{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.22,1,.36,1);}
-    .exp-panel.open{max-height:700px;}
+    .exp-panel.open{max-height:3000px;}
     .exp-grid{display:grid;gap:1px;background:rgba(26,63,92,.15);border-top:1px solid rgba(26,63,92,.15);}
     .exp-item{background:var(--white);padding:1.1rem 2.25rem;display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:1.5rem;}
     .exp-role{font-size:.82rem;font-weight:600;color:var(--bi);margin-bottom:.15rem;}
     .exp-org{font-size:.72rem;color:var(--bd);margin-bottom:.25rem;}
-    .exp-desc{font-size:.73rem;color:var(--mu);line-height:1.6;}
+    .exp-desc{font-size:.73rem;color:var(--text);line-height:1.6;}
     .exp-date{font-size:.62rem;color:var(--mu);white-space:nowrap;text-align:right;}
 
     /* ILLUSTRATED TEXTURE */
@@ -398,22 +614,22 @@
       background-image:radial-gradient(circle,rgba(122,184,212,.12) 1px,transparent 1px);
       background-size:22px 22px;
     }
-    .pc{border-radius:10px;}
-    .ptag,.stag,.mti{border-style:dashed;border-width:1px;}
     .bento{box-shadow:0 2px 16px rgba(26,63,92,.06);}
-    .art-item{box-shadow:2px 2px 0 rgba(26,63,92,.08), inset 0 0 0 3px rgba(255,255,255,.8);}
-    .nav-inner{border-radius:20px;box-shadow:0 2px 16px rgba(26,63,92,.1);}
-    .nav-cell:first-child{border-radius:20px 0 0 20px;}
-    .nav-cell:last-child{border-radius:0 20px 20px 0;}
+    .art-item{box-shadow:2px 2px 0 rgba(26,63,92,.16), inset 0 0 0 3px rgba(255,255,255,.8);}
     #music-btn{font-family:var(--font);}
+    .ptag,.stag,.mti{display:inline-flex;align-items:center;}
+    .ptag::before,.ptag::after,.stag::before,.stag::after,.mti::before,.mti::after{color:var(--blue-block);opacity:.7;font-weight:700;}
+    .ptag::before,.stag::before,.mti::before{content:'[';margin-right:.22em;}
+    .ptag::after,.stag::after,.mti::after{content:']';margin-left:.22em;}
 
     @keyframes fadeDown{from{opacity:0;transform:translateY(-10px);}to{opacity:1;transform:translateY(0);}}
     @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
     /* RESPONSIVE */
     @media(max-width:900px){
-      #hero{grid-template-columns:1fr;padding:6rem 2rem 3rem;height:auto;gap:2.5rem;}
-      .hl{padding-left:0;}
+      #hero{grid-template-columns:1fr;padding:6rem 2rem 3rem;height:auto;gap:2.5rem;justify-items:center;}
+      .hl{padding-left:0;text-align:center;}
+      .ha{justify-content:center;}
       .tw{width:min(380px,90vw);}
       .pgrid{grid-template-columns:1fr;}
       #about .bento{grid-template-columns:1fr;}
@@ -429,9 +645,10 @@
       .ha{justify-content:center;}
       .hr2{justify-content:center;width:100%;}
       .tw{width:min(260px,80vw);}
-      .nav-inner{grid-template-columns:repeat(4,auto);gap:0;}
-      .nav-cell{padding:.45rem .9rem;}
-      .nav-cell a{font-size:.65rem;}
+      nav{padding:1.1rem 1.25rem;}
+      .nav-mark{font-size:.62rem;}
+      .nav-links{gap:1.1rem;}
+      .nav-links a{font-size:.6rem;letter-spacing:.06em;}
       .si{padding:2.5rem 1.25rem;}
       #experience .si{padding-top:1rem;}
       #art .si{padding-bottom:1rem;}
@@ -441,15 +658,14 @@
       .pgrid{grid-template-columns:1fr!important;}
       .pc{min-height:auto;}
       .pc[style*="grid-column"]{grid-column:1!important;}
-      #mp{width:100vw;max-width:100vw;right:-100vw;border-radius:0;}
-      #mp.open{right:0;}
+      #mp{width:100vw;max-width:100vw;right:0;border-radius:0;transform:translateX(100%);transition:transform .42s cubic-bezier(.22,1,.36,1);}
+      #mp.open{transform:translateX(0);}
       .mb,.mb-grid{display:flex!important;flex-direction:column!important;gap:0!important;background:transparent!important;padding:.5rem!important;}
       .mbc{border:1.5px solid #1a3f5c!important;border-radius:8px!important;padding:1rem 1.25rem!important;background:#f8fbfd!important;grid-column:1!important;margin:4px!important;}
       .mbc.full{grid-column:1!important;border-radius:8px!important;}
       .mtb{padding:.9rem 1.25rem;}
       .ss-track{height:300px;}
-      .art-item{flex:0 0 160px;}
-      .art-item img{height:140px;}
+      .art-item img{height:140px;max-width:230px;min-width:100px;}
       #contact .bento{grid-template-columns:1fr!important;}
       #contact .bc[style*="grid-row"]{grid-row:auto!important;}
       .exp-header{grid-template-columns:1fr!important;}
@@ -460,15 +676,17 @@
     }
     @media(max-width:480px){
       .hn{font-size:2.2rem;}
-      .nav-cell a{font-size:.6rem;}
-      .nav-cell{padding:.4rem .7rem;}
+      .nav-mark{font-size:.56rem;}
+      .nav-links{gap:.8rem;}
+      .nav-links a{font-size:.56rem;}
       .tw{width:min(220px,85vw);}
     }
     @media(max-width:640px){
       nav{padding:.5rem 1rem;}
       .si{padding:3.5rem 1.5rem;}
       footer{padding:1.25rem;}
-      .mp{border-radius:16px 16px 0 0;top:auto;right:0;bottom:0;left:0;width:100%;height:90vh;}
+      #mp{border-radius:16px 16px 0 0;top:auto;right:0;left:0;bottom:0;width:100%;height:90vh;transform:translateY(100%);}
+      #mp.open{transform:translateY(0);}
     }
     @media(prefers-reduced-motion:reduce){
       .reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-children>*{opacity:1;transform:none;}
@@ -478,13 +696,34 @@
 </head>
 <body>
 
+<script>
+if(sessionStorage.getItem('introShown')==='1'){document.write('<style>#bookIntro{display:none!important}</style>');}
+</script>
+<div id="bookIntro">
+  <div class="page" onclick="openBook()">
+    <div class="page-front">
+      <span class="book-kicker">portfolio</span>
+      <h1 class="book-title">lydia<br/>he</h1>
+      <p class="book-sub">game developer &amp; product designer building playable worlds</p>
+      <div class="book-hint">
+        <span>tap to open</span>
+        <svg viewBox="0 0 40 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2,12 C14,12 26,12 36,12"/>
+          <path d="M28,5 L37,12 L28,19" stroke-width="2.2"/>
+        </svg>
+      </div>
+      <div class="book-corner"></div>
+    </div>
+  </div>
+</div>
+
 <svg id="fc" viewBox="0 0 34 34" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="3,11 3,23 11,17" fill="#e87030" opacity=".88"/>
-  <ellipse cx="20" cy="17" rx="11" ry="7.5" fill="#e87030"/>
+  <polygon points="3,11 3,23 11,17" fill="#e87030" stroke="#0f1e2e" stroke-width="1.6" stroke-linejoin="round"/>
+  <ellipse cx="20" cy="17" rx="11" ry="7.5" fill="#e87030" stroke="#0f1e2e" stroke-width="1.8"/>
   <ellipse cx="21" cy="15" rx="6.5" ry="3.8" fill="#f0a060" opacity=".5"/>
-  <polygon points="15,10 20,10 17.5,5.5" fill="#c85820" opacity=".8"/>
-  <circle cx="28" cy="15" r="2.1" fill="white"/>
-  <circle cx="28.5" cy="15" r="1.2" fill="#111"/>
+  <polygon points="15,10 20,10 17.5,5.5" fill="#c85820" stroke="#0f1e2e" stroke-width="1.4" stroke-linejoin="round"/>
+  <circle cx="28" cy="15" r="2.1" fill="white" stroke="#0f1e2e" stroke-width="1.3"/>
+  <circle cx="28.5" cy="15" r="1.2" fill="#0f1e2e"/>
 </svg>
 
 <div class="mo" id="mo" onclick="closeModal()"></div>
@@ -496,22 +735,34 @@
   <div class="mb" id="mc"></div>
 </div>
 
+<div class="lb" id="lb" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+  <img id="lb-img" src="" alt=""/>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
 <nav>
   <div class="nav-inner">
-    <div class="nav-cell"><a href="#about">about</a></div>
-    <div class="nav-cell"><a href="#projects">work</a></div>
-    <div class="nav-cell"><a href="#art">art</a></div>
-    <div class="nav-cell"><a href="#contact">contact</a></div>
+    <a href="#hero" class="nav-mark">Lydia He</a>
+    <div class="nav-links">
+      <a href="#about">about</a>
+      <a href="#projects">work</a>
+      <a href="#art">art</a>
+      <a href="#contact">contact</a>
+    </div>
   </div>
 </nav>
 
 <section id="hero">
   <div class="hl">
-    <h1 class="hn">hello,<br/>i'm <span class="ac">lydia!</span></h1>
-    <p class="hs">designer & developer with a background in visual art, blending design with functionality</p>
+    <span class="hero-kicker">✦ portfolio · 2026</span>
+    <h1 class="hn">hello,<br/>i'm <span class="ac">lydia!</span> <span class="doodle-star pink" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30"><path d="M12,0 C13,7 17,11 24,12 C17,13 13,17 12,24 C11,17 7,13 0,12 C7,11 11,7 12,0 Z" fill="var(--pink)"/></svg></span></h1>
+    <p class="hero-role">Game Developer &amp; Product Designer</p>
+    <svg class="doodle-underline" viewBox="0 0 220 14" width="190" height="14" aria-hidden="true"><path d="M2,8 C40,2 80,12 120,6 C150,2 180,10 216,5" stroke="var(--pink)" stroke-width="2.5"/></svg>
+    <p class="hs">designer &amp; developer with a background in visual art, blending design with functionality.</p>
     <div class="ha">
-      <a href="#projects" class="bp">my recent work</a>
-      <a href="mailto:lhe309@gatech.edu" class="bg2">get in touch →</a>
+      <a href="#projects" class="bp" data-label="my recent work">my recent work<span class="ulbar"></span></a>
+      <a href="#contact" class="bg2" data-label="get in touch →">get in touch →<span class="ulbar"></span></a>
     </div>
   </div>
   <div class="hr2">
@@ -519,7 +770,84 @@
       <div class="gb-body">
         <div class="gb-screen-bezel">
           <div class="gb-screen">
-            <canvas id="ac"></canvas>
+            <svg id="ac" viewBox="0 0 330 300" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#c2e8f5"/>
+                  <stop offset="55%" stop-color="#8fcbe6"/>
+                  <stop offset="100%" stop-color="#5fa8cf"/>
+                </linearGradient>
+                <linearGradient id="sandGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#f0d9ad"/>
+                  <stop offset="100%" stop-color="#dfbf87"/>
+                </linearGradient>
+                <g id="fishShape">
+                  <polygon points="-17,-6 -17,6 -9,0" fill="currentColor" stroke="#0f1e2e" stroke-width="1.8" stroke-linejoin="round"/>
+                  <ellipse cx="0" cy="0" rx="11" ry="7.5" fill="currentColor" stroke="#0f1e2e" stroke-width="1.8"/>
+                  <ellipse cx="1" cy="-2" rx="6.5" ry="3.8" fill="#fff" opacity=".32"/>
+                  <polygon points="-5,-7 0,-7 -2.5,-11.5" fill="currentColor" stroke="#0f1e2e" stroke-width="1.6" stroke-linejoin="round"/>
+                  <circle cx="8" cy="-2" r="2.1" fill="#fff" stroke="#0f1e2e" stroke-width="1.4"/>
+                  <circle cx="8.5" cy="-2" r="1.2" fill="#0f1e2e"/>
+                </g>
+              </defs>
+
+              <rect x="0" y="0" width="330" height="300" fill="url(#waterGrad)"/>
+
+              <g opacity=".16">
+                <polygon points="60,0 100,0 72,300 34,300" fill="#fff"/>
+                <polygon points="205,0 238,0 262,300 224,300" fill="#fff"/>
+              </g>
+
+              <g class="seaweed" style="transform-origin:46px 258px;">
+                <path d="M46,258 C36,230 56,210 44,182 C34,158 54,140 46,116" fill="none" stroke="#0f1e2e" stroke-width="12.5" stroke-linecap="round"/>
+                <path d="M46,258 C36,230 56,210 44,182 C34,158 54,140 46,116" fill="none" stroke="#4a9a72" stroke-width="9" stroke-linecap="round"/>
+              </g>
+              <g class="seaweed sw2" style="transform-origin:98px 264px;">
+                <path d="M98,264 C110,236 88,214 100,188 C110,166 92,146 100,126" fill="none" stroke="#0f1e2e" stroke-width="10.5" stroke-linecap="round"/>
+                <path d="M98,264 C110,236 88,214 100,188 C110,166 92,146 100,126" fill="none" stroke="#5cae7e" stroke-width="7" stroke-linecap="round"/>
+              </g>
+              <g class="seaweed sw3" style="transform-origin:262px 260px;">
+                <path d="M262,260 C250,232 272,212 258,186 C248,162 268,144 258,120" fill="none" stroke="#0f1e2e" stroke-width="11.5" stroke-linecap="round"/>
+                <path d="M262,260 C250,232 272,212 258,186 C248,162 268,144 258,120" fill="none" stroke="#4a9a72" stroke-width="8" stroke-linecap="round"/>
+              </g>
+              <g class="seaweed sw4" style="transform-origin:300px 266px;">
+                <path d="M300,266 C312,240 292,220 302,196 C310,176 294,158 302,140" fill="none" stroke="#0f1e2e" stroke-width="9.5" stroke-linecap="round"/>
+                <path d="M300,266 C312,240 292,220 302,196 C310,176 294,158 302,140" fill="none" stroke="#5cae7e" stroke-width="6" stroke-linecap="round"/>
+              </g>
+
+              <g class="coral" style="transform-origin:138px 268px;">
+                <path d="M138,268 C126,260 120,246 126,232 C130,224 124,218 128,208 C131,200 140,198 143,206 C147,216 140,222 144,232 C148,244 148,258 138,268 Z" fill="#e2645a"/>
+                <path d="M138,268 C132,262 129,252 132,242 C134,236 131,231 133,224" fill="none" stroke="#c94f46" stroke-width="1.4" stroke-linecap="round" opacity=".55"/>
+              </g>
+              <g class="coral c2" style="transform-origin:168px 266px;">
+                <ellipse cx="167" cy="262" rx="4.4" ry="7.6" fill="#e8b84a" transform="rotate(-18 167 262)"/>
+                <ellipse cx="172" cy="252" rx="4.6" ry="8" fill="#e8b84a" transform="rotate(16 172 252)"/>
+                <ellipse cx="166" cy="241" rx="4.4" ry="7.8" fill="#e8b84a" transform="rotate(-14 166 241)"/>
+                <ellipse cx="171" cy="230" rx="4" ry="7.2" fill="#e8b84a" transform="rotate(15 171 230)"/>
+                <ellipse cx="167" cy="220" rx="3.4" ry="6.6" fill="#e8b84a" transform="rotate(-12 167 220)"/>
+                <ellipse cx="170" cy="211" rx="2.8" ry="5.6" fill="#e8b84a" transform="rotate(10 170 211)"/>
+              </g>
+              <g class="coral c3" style="transform-origin:200px 266px;">
+                <path d="M198,266 C193,250 195,232 201,214 C207,232 205,250 203,266 Z" fill="#7fa8b8"/>
+                <path d="M209,264 C205,250 207,236 212,222 C217,236 215,250 213,264 Z" fill="#7fa8b8"/>
+              </g>
+
+              <path d="M0,300 L0,268 Q80,242 165,252 Q250,262 330,236 L330,300 Z" fill="url(#sandGrad)" stroke="#0f1e2e" stroke-width="2.2" stroke-linejoin="round"/>
+              <ellipse cx="130" cy="266" rx="16" ry="7" fill="#cda876" stroke="#0f1e2e" stroke-width="1.4" opacity=".85"/>
+              <ellipse cx="255" cy="252" rx="12" ry="5.5" fill="#cda876" stroke="#0f1e2e" stroke-width="1.3" opacity=".8"/>
+              <ellipse cx="55" cy="272" rx="10" ry="4.5" fill="#cda876" stroke="#0f1e2e" stroke-width="1.2" opacity=".75"/>
+
+              <circle class="bubble" cx="70" cy="290" r="3.2" style="--d:0s;--dur:6.5s;"/>
+              <circle class="bubble" cx="150" cy="296" r="2.2" style="--d:1.4s;--dur:5.5s;"/>
+              <circle class="bubble" cx="210" cy="292" r="4" style="--d:2.6s;--dur:7.2s;"/>
+              <circle class="bubble" cx="280" cy="298" r="2.6" style="--d:.7s;--dur:6s;"/>
+              <circle class="bubble" cx="110" cy="294" r="2" style="--d:3.4s;--dur:5s;"/>
+              <circle class="bubble" cx="30" cy="296" r="2.8" style="--d:4.2s;--dur:6.8s;"/>
+
+              <g id="fish1" class="fish" style="color:#e8703a"><use href="#fishShape"/></g>
+              <g id="fish2" class="fish" style="color:#f7efe0"><use href="#fishShape"/></g>
+              <g id="fish3" class="fish" style="color:#e0503f"><use href="#fishShape"/></g>
+            </svg>
             <div class="gb-screen-shine"></div>
           </div>
         </div>
@@ -542,30 +870,42 @@
       </div>
     </div>
   </div>
+  <div class="scribble-cue">
+    <span class="scribble-text">scroll to dive in~</span>
+    <svg viewBox="0 0 30 54" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15,2 C19,11 10,19 15,28 C19,36 11,42 15,50"/>
+      <path d="M6,41 L15,53 L24,40" stroke-width="2.2"/>
+    </svg>
+  </div>
 </section>
 
 <section id="about">
   <div class="si">
+    <div class="ed-head reveal">
+      <span class="ed-tag">About</span>
+      <span class="ed-num">01</span>
+      <span class="ed-cat">Profile</span>
+    </div>
     <div class="bento" style="grid-template-columns:1.3fr 1fr;">
       <div class="bc ab-bio reveal-left">
-        <h2>hi! i'm lydia he</h2>
-        <p>Designer and developer studying CS and Game Design at Georgia Tech, with a minor in Industrial Design. I create immersive experiences by combining art, technology, and storytelling.</p>
-        <p>Currently interested in 3D modeling and product design, looking for hands-on experience through an internship. In my free time I enjoy sketching, photography, and playing games with friends.</p>
+        <h2>hi! i'm lydia he <span class="doodle-star blue hide-sm" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M12,0 C13,7 17,11 24,12 C17,13 13,17 12,24 C11,17 7,13 0,12 C7,11 11,7 12,0 Z" fill="var(--blue-block)"/></svg></span></h2>
+        <p><strong>Computational Media student at Georgia Tech</strong> (Media & Games thread), with a <strong>minor in Industrial Design</strong>. I build playable, visual experiences by moving between 3D art, shader/VFX work, and UI/UX, currently modeling and rigging in Blender, writing custom URP Shader Graphs in Unity, and designing interfaces in Figma.</p>
+        <p>Looking for a 2027 game development or product design internship where I can bring that full pipeline, from concept art through shipped, playtested systems. In my free time I enjoy sketching, photography, and playing games with friends.</p>
       </div>
       <div class="bc reveal-right" style="display:flex;flex-direction:column;gap:1.25rem;">
         <div>
           <span class="bc-label">Languages</span>
           <div class="stags">
-            <span class="stag">Python</span><span class="stag">Java</span><span class="stag">C#</span>
-            <span class="stag">TypeScript</span><span class="stag">HTML/CSS</span><span class="stag">SQL</span>
+            <span class="stag">C#</span><span class="stag">Python</span><span class="stag">Java</span>
+            <span class="stag">C</span><span class="stag">JavaScript</span><span class="stag">HTML/CSS</span>
           </div>
         </div>
         <div>
           <span class="bc-label">Tools</span>
           <div class="stags">
-            <span class="stag">Unity</span><span class="stag">Figma</span><span class="stag">Blender</span>
-            <span class="stag">React.js</span><span class="stag">Git</span><span class="stag">Photoshop</span>
-            <span class="stag">Final Cut Pro</span>
+            <span class="stag">Unity URP</span><span class="stag">Shader Graph</span><span class="stag">Blender</span>
+            <span class="stag">Figma</span><span class="stag">MagicaVoxel</span><span class="stag">Aseprite</span>
+            <span class="stag">Adobe CC</span><span class="stag">Git</span>
           </div>
         </div>
         <div>
@@ -575,49 +915,84 @@
       </div>
       <div class="bc bg reveal" style="padding:1.5rem 2.25rem;">
         <span class="bc-label">Based in</span>
-        <div style="font-size:.9rem;font-weight:500;color:var(--bi);">Atlanta, GA</div>
+        <div style="font-size:.9rem;font-weight:500;color:var(--bi);">San Jose, CA</div>
       </div>
       <div class="bc bg reveal" style="padding:1.5rem 2.25rem;transition-delay:.1s;">
         <span class="bc-label">Studying</span>
-        <div style="font-size:.9rem;font-weight:500;color:var(--bi);">CS + Game Design @ GT</div>
+        <div style="font-size:.9rem;font-weight:500;color:var(--bi);">Computational Media @ GT</div>
       </div>
+    </div>
+    <div class="scribble-note" style="justify-content:flex-end;margin-top:1.75rem;">
+      <span>check out what i've made</span>
+      <svg viewBox="0 0 46 30" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2,6 C14,0 27,2 31,10 C34,15 32,19 29,19"/>
+        <path d="M24.7,23.2 L36,26 L33.2,14.7" stroke-width="2.2"/>
+      </svg>
     </div>
   </div>
 </section>
 
 <section id="projects">
   <div class="si">
+    <div class="ed-head reveal">
+      <span class="ed-tag">Selected Work</span>
+      <span class="ed-num">02</span>
+      <span class="ed-cat">Game · UI/UX · Dev</span>
+    </div>
     <div class="proj-section">
       <div class="proj-section-label reveal">game development</div>
       <div class="pgrid reveal-children">
-        <div class="pc" onclick="openModal('kinetic')">
+        <div class="pc" onclick="openModal('unraveling')">
+          <div class="pc-img">
+            <img src="images/unraveling-cover.png" alt="Unraveling" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">Unraveling</div>
+          </div>
           <div class="pc-top">
-            <div class="pt game">Unity · C# · Solo</div>
-            <h3 class="pti">Kinetic Vault <span class="bwip">in dev</span></h3>
-            <p class="pd">3D FPS with narrative and puzzle elements set in an abandoned research facility. Environmental storytelling, combat, and act-based progression.</p>
-            <div class="ptags"><span class="ptag">Unity</span><span class="ptag">C#</span><span class="ptag">3D</span><span class="ptag">FPS</span><span class="ptag">Solo</span></div>
+            <div class="pt game">Unity · C# · Team of 40+</div>
+            <h3 class="pti">Unraveling</h3>
+            <p class="pd">Psychological horror game where anxiety becomes a survival mechanic. 3D, VFX & UI/UX lead.</p>
+            <div class="ptags"><span class="ptag">Unity</span><span class="ptag">Blender</span><span class="ptag">Team Lead</span></div>
           </div>
-          <div class="pc-bot"><span class="ob">View project ↗</span></div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
         </div>
-        <div class="pc" onclick="openModal('crisis')">
+        <div class="pc" onclick="openModal('tokenverse')">
+          <div class="pc-img">
+            <img src="images/tokenverse-cover.png" alt="TokenVerse" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">TokenVerse</div>
+          </div>
           <div class="pc-top">
-            <div class="pt game">Figma · MagicaVoxel</div>
-            <h3 class="pti">Current Crisis</h3>
-            <p class="pd">UI & game asset designer for a power grid simulation game built at Georgia Tech VIP. Designed voxel assets and UI systems for public education about energy infrastructure.</p>
-            <div class="ptags"><span class="ptag">Figma</span><span class="ptag">UI/UX</span><span class="ptag">MagicaVoxel</span><span class="ptag">Game Design</span></div>
+            <div class="pt game">Blender · Unity URP · Research</div>
+            <h3 class="pti">TokenVerse <span class="bwip">in dev</span></h3>
+            <p class="pd">Translating 2D concept art into rigged 3D models and shaders that visualize how AI transformers work.</p>
+            <div class="ptags"><span class="ptag">Blender</span><span class="ptag">Unity URP</span><span class="ptag">Research</span></div>
           </div>
-          <div class="pc-bot"><span class="ob">View project ↗</span></div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
         </div>
-        <div class="pc" onclick="openModal('whisker')" style="grid-column:1/-1;">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;">
-            <div class="pc-top">
-              <div class="pt game">Unity · C# · Team of 6</div>
-              <h3 class="pti">Whisker Woods</h3>
-              <p class="pd">2D exploration game in a cursed forest. Lead tilemapper and environment designer — built tile-based world, puzzles, and UI across multiple biomes.</p>
-              <div class="ptags"><span class="ptag">Unity</span><span class="ptag">C#</span><span class="ptag">2D</span><span class="ptag">Tilemap</span><span class="ptag">Exploration</span></div>
-            </div>
-            <div style="display:flex;justify-content:flex-end;"><span class="ob">View project ↗</span></div>
+        <div class="pc" onclick="openModal('datadump')">
+          <div class="pc-img">
+            <img src="images/datadump-cover.png" alt="DataDump" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">DataDump</div>
           </div>
+          <div class="pc-top">
+            <div class="pt game">Unity · C# · Game Jam</div>
+            <h3 class="pti">DataDump</h3>
+            <p class="pd">Scrap-and-rebuild roguelike built in 48 hours for GMTK Game Jam 2026.</p>
+            <div class="ptags"><span class="ptag">Unity</span><span class="ptag">Game Jam</span><span class="ptag">Roguelike</span></div>
+          </div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
+        </div>
+        <div class="pc" onclick="openModal('whisker')">
+          <div class="pc-img">
+            <img src="images/whisker-house-interior2.png" alt="Whisker Woods" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">Whisker Woods</div>
+          </div>
+          <div class="pc-top">
+            <div class="pt game">Unity · C# · Team of 6</div>
+            <h3 class="pti">Whisker Woods</h3>
+            <p class="pd">2D exploration game in a cursed forest — tile-based world, puzzles, and UI across multiple biomes.</p>
+            <div class="ptags"><span class="ptag">Unity</span><span class="ptag">2D</span><span class="ptag">Tilemap</span></div>
+          </div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
         </div>
       </div>
     </div>
@@ -626,22 +1001,49 @@
       <div class="proj-section-label reveal">ui/ux design</div>
       <div class="pgrid reveal-children">
         <div class="pc pu" onclick="openModal('tft')">
+          <div class="pc-img">
+            <img src="images/tft-cover.png" alt="Teamfight Tactics" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">TFT</div>
+          </div>
           <div class="pc-top">
             <div class="pt design">Figma · Web</div>
             <h3 class="pti">Teamfight Tactics</h3>
-            <p class="pd">Full website redesign — bold visual language, hierarchy, and responsive layouts for Riot's autochess game.</p>
+            <p class="pd">Full website redesign — bold visual language and responsive layouts for Riot's autochess game.</p>
             <div class="ptags"><span class="ptag">Figma</span><span class="ptag">UI/UX</span><span class="ptag">Redesign</span></div>
           </div>
-          <div class="pc-bot"><span class="ob">View project ↗</span></div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
         </div>
         <div class="pc pu" onclick="openModal('itravl')">
+          <div class="pc-img">
+            <img src="images/itravl-cover.png" alt="iTravl" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">iTravl</div>
+          </div>
           <div class="pc-top">
             <div class="pt design">Figma · Designathon</div>
             <h3 class="pti">iTravl</h3>
-            <p class="pd">AI-powered travel companion with context-aware translation and cultural insights. Built in 48 hours at Rice Designathon 2025.</p>
-            <div class="ptags"><span class="ptag">Figma</span><span class="ptag">Mobile</span><span class="ptag">UX Research</span><span class="ptag">AI</span></div>
+            <p class="pd">AI-powered travel companion with context-aware translation, built in 48 hours at Rice Designathon.</p>
+            <div class="ptags"><span class="ptag">Figma</span><span class="ptag">Mobile</span><span class="ptag">AI</span></div>
           </div>
-          <div class="pc-bot"><span class="ob">View project ↗</span></div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-section">
+      <div class="proj-section-label reveal">product design</div>
+      <div class="pgrid reveal-children">
+        <div class="pc pu" onclick="openModal('balancebar')">
+          <div class="pc-img">
+            <img src="images/balancebar-title.jpg" alt="BalanceBar" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">BalanceBar</div>
+          </div>
+          <div class="pc-top">
+            <div class="pt design">CAD · Product Design</div>
+            <h3 class="pti">BalanceBar</h3>
+            <p class="pd">Electric scooter handlebar attachment that redesigns storage and control for safer one-handed riding.</p>
+            <div class="ptags"><span class="ptag">CAD</span><span class="ptag">Industrial Design</span><span class="ptag">Prototyping</span></div>
+          </div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
         </div>
       </div>
     </div>
@@ -649,23 +1051,31 @@
     <div class="proj-section">
       <div class="proj-section-label reveal">development</div>
       <div class="pgrid reveal-children">
-        <div class="pc pu" onclick="openModal('spendwise')">
-          <div class="pc-top">
-            <div class="pt design">Java · Android</div>
-            <h3 class="pti">SpendWise</h3>
-            <p class="pd">Full-stack personal finance app with real-time budget tracking, AI-powered insights, and group savings circles — built for college students.</p>
-            <div class="ptags"><span class="ptag">Java</span><span class="ptag">Android</span><span class="ptag">Firebase</span><span class="ptag">AI</span><span class="ptag">MVVM</span></div>
-          </div>
-          <div class="pc-bot"><span class="ob">View project ↗</span></div>
-        </div>
         <div class="pc" onclick="openModal('speechwrite')">
+          <div class="pc-img">
+            <img src="images/speechwrite-landing.jpg" alt="SpeechWrite" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">SpeechWrite</div>
+          </div>
           <div class="pc-top">
             <div class="pt game">Python · React</div>
             <h3 class="pti">SpeechWrite</h3>
-            <p class="pd">Phoneme-level accent bias detector for speech-to-text models. Analyzes transcription errors across English accents for the entertainment industry.</p>
-            <div class="ptags"><span class="ptag">Python</span><span class="ptag">Whisper</span><span class="ptag">NLP</span><span class="ptag">Phoneme Analysis</span><span class="ptag">Groq</span></div>
+            <p class="pd">Phoneme-level accent bias detector for speech-to-text models, built for the entertainment industry.</p>
+            <div class="ptags"><span class="ptag">Python</span><span class="ptag">Whisper</span><span class="ptag">NLP</span></div>
           </div>
-          <div class="pc-bot"><span class="ob">View project ↗</span></div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
+        </div>
+        <div class="pc pu" onclick="openModal('spendwise')">
+          <div class="pc-img">
+            <img src="images/spendwise-hero.png" alt="SpendWise" onerror="this.nextElementSibling.style.display='flex';this.style.display='none'"/>
+            <div class="pc-img-ph">SpendWise</div>
+          </div>
+          <div class="pc-top">
+            <div class="pt design">Java · Android</div>
+            <h3 class="pti">SpendWise</h3>
+            <p class="pd">Full-stack finance app with real-time budget tracking, AI insights, and group savings circles.</p>
+            <div class="ptags"><span class="ptag">Java</span><span class="ptag">Android</span><span class="ptag">Firebase</span></div>
+          </div>
+          <div class="pc-bot"><span class="ob" data-label="View project ↗">View project ↗<span class="ulbar"></span></span></div>
         </div>
       </div>
     </div>
@@ -674,30 +1084,136 @@
 
 <section id="art">
   <div class="si" style="padding-bottom:1.5rem;">
+    <div class="ed-head reveal">
+      <span class="ed-tag">Gallery</span>
+      <span class="ed-num">03</span>
+      <span class="ed-cat">Assets · Artworks</span>
+    </div>
     <div class="art-box reveal">
       <div class="art-header">
         <div class="art-header-cell">
           <div class="art-toggle-row">
-            <h2 class="art-title">artworks</h2>
-            <button class="art-toggle" id="art-toggle-btn" onclick="toggleArt()">
-              view works <em class="chevron">↓</em>
+            <h2 class="art-title">assets</h2>
+            <button class="art-toggle" id="assets-toggle-btn" data-label="view assets ↓" onclick="togglePanel('assets-panel','assets-toggle-btn','assets')">
+              view assets <em class="chevron">↓</em><span class="ulbar"></span>
             </button>
           </div>
-          <p class="art-meta">2023 – present · procreate, multimedia</p>
+          <p class="art-meta">2025 – present · 3D assets</p>
+        </div>
+        <div class="art-header-cell bg">
+          <span class="bc-label">role</span>
+          <div style="font-size:.9rem;color:var(--bi);font-weight:500;">3D modeler and animator</div>
+          <div style="font-size:.78rem;color:var(--text);margin-top:.5rem;">Blender, Nomad Sculpt, Aseprite </div>
+        </div>
+      </div>
+      <div class="art-panel" id="assets-panel">
+        <div class="asset-group">
+          <div class="asset-group-title">Furina <span class="asset-group-sub">Blender — built from scratch off a ref image → 2D toon-shade material → hand texture-painted</span></div>
+          <div class="art-scroll">
+            <div class="art-item">
+              <img src="images/furina-basemesh.jpg" alt="furina base mesh, modeled from scratch in blender" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">base mesh</div>
+              <div class="art-item-info"><div class="art-name">base mesh</div><div class="art-year">2026</div><div class="art-note">modeled from scratch off a ref image</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/furina-shader.jpg" alt="furina custom 2D toon shade shader node graph" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">toon shader</div>
+              <div class="art-item-info"><div class="art-name">toon-shade material</div><div class="art-year">2026</div><div class="art-note">custom 2D toon shader + face paint texture</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/furina-face-front.jpg" alt="furina texture painted face, front view" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">face — front</div>
+              <div class="art-item-info"><div class="art-name">face detail</div><div class="art-year">2026</div><div class="art-note">texture-painted, front</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/furina-face-angle.jpg" alt="furina texture painted face, angled view" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">face — angle</div>
+              <div class="art-item-info"><div class="art-name">face detail</div><div class="art-year">2026</div><div class="art-note">texture-painted, 3/4 angle</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/furina-clothing-detail.jpg" alt="furina texture painted clothing and fabric folds" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">clothing detail</div>
+              <div class="art-item-info"><div class="art-name">clothing folds</div><div class="art-year">2026</div><div class="art-note">hand-painted fabric shading</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/furina-full-front.jpg" alt="furina finished character, front view" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">finished — front</div>
+              <div class="art-item-info"><div class="art-name">finished — front</div><div class="art-year">2026</div><div class="art-note">final texture paint</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/furina-full-back.jpg" alt="furina finished character, back view" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">finished — back</div>
+              <div class="art-item-info"><div class="art-name">finished — back</div><div class="art-year">2026</div><div class="art-note">final texture paint</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="asset-group">
+          <div class="asset-group-title">City Fall <span class="bwip">in progress</span> <span class="asset-group-sub">Blender — inspired by the Spider-Verse falling scene · city, camera &amp; character animation built from scratch · compositor glow, glitch &amp; lens-distortion pass</span></div>
+          <div class="art-scroll">
+            <div class="art-item">
+              <img src="images/city-dive-ref.jpg" alt="reference still from Spider-Man: Into the Spider-Verse falling scene" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">reference</div>
+              <div class="art-item-info"><div class="art-name">reference</div><div class="art-year">2026</div><div class="art-note">inspired by Spider-Man: Into the Spider-Verse</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/city-dive.gif" alt="falling through a glowing city, animated in blender" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">city dive</div>
+              <div class="art-item-info"><div class="art-name">city dive</div><div class="art-year">2026</div><div class="art-note">city, camera &amp; character animation, in progress</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/city-vfx-compositor.jpg" alt="compositor node graph for city glow, glitch and distortion effect" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">compositor nodes</div>
+              <div class="art-item-info"><div class="art-name">compositor pass</div><div class="art-year">2026</div><div class="art-note">glow, glitch &amp; lens distortion nodes</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="asset-group">
+          <div class="asset-group-title">Custom OC <span class="asset-group-sub">Nomad Sculpt — personal design for a friend · Aseprite pixel sprite of the same character</span></div>
+          <div class="art-scroll">
+            <div class="art-item">
+              <img src="images/customoc-basesculpt.jpg" alt="custom OC base sculpt in Nomad Sculpt" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">base sculpt</div>
+              <div class="art-item-info"><div class="art-name">base sculpt</div><div class="art-year">2026</div><div class="art-note">Nomad Sculpt</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/customoc-facepaint.jpg" alt="custom OC face and hair texture painting in Nomad Sculpt" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">face &amp; hair paint</div>
+              <div class="art-item-info"><div class="art-name">face &amp; hair detail</div><div class="art-year">2026</div><div class="art-note">texture painting</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/customoc-finished.jpg" alt="custom OC finished character render" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">finished</div>
+              <div class="art-item-info"><div class="art-name">finished character</div><div class="art-year">2026</div><div class="art-note">Nomad Sculpt render</div></div>
+            </div>
+            <div class="art-item">
+              <img src="images/customoc-sprite.gif" alt="Aseprite pixel art sprite of the same character" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
+              <div class="art-ph" style="display:none;">pixel sprite</div>
+              <div class="art-item-info"><div class="art-name">pixel sprite</div><div class="art-year">2026</div><div class="art-note">Aseprite, same character</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="art-box reveal" style="margin-top:2.5rem;">
+      <div class="art-header">
+        <div class="art-header-cell">
+          <div class="art-toggle-row">
+            <h2 class="art-title">artworks</h2>
+            <button class="art-toggle" id="art-toggle-btn" data-label="view works ↓" onclick="togglePanel('art-panel','art-toggle-btn','works')">
+              view works <em class="chevron">↓</em><span class="ulbar"></span>
+            </button>
+          </div>
+          <p class="art-meta">2023 – present · procreate, blender</p>
         </div>
         <div class="art-header-cell bg">
           <span class="bc-label">role</span>
           <div style="font-size:.9rem;color:var(--bi);font-weight:500;">artist</div>
-          <div style="font-size:.78rem;color:var(--mu);margin-top:.5rem;">sketching, digital painting, mixed media, photography</div>
+          <div style="font-size:.78rem;color:var(--text);margin-top:.5rem;">sketching, digital painting, mixed media, 3D</div>
         </div>
       </div>
       <div class="art-panel" id="art-panel">
         <div class="art-scroll">
-          <div class="art-item">
-            <img src="images/furina-3d.png" alt="furina 3d model" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
-            <div class="art-ph" style="display:none;">furina 3d</div>
-            <div class="art-item-info"><div class="art-name">furina</div><div class="art-year">2026</div><div class="art-note">3D model — Blender</div></div>
-          </div>
           <div class="art-item">
             <img src="images/girl-with-a-leaf.jpg" alt="girl with a leaf" onerror="this.parentElement.querySelector('.art-ph').style.display='flex';this.style.display='none'"/>
             <div class="art-ph" style="display:none;">girl with a leaf</div>
@@ -731,45 +1247,81 @@
         </div>
       </div>
     </div>
+    <div class="scribble-note" style="margin-top:1.75rem;">
+      <span>here's where i've worked</span>
+      <svg viewBox="0 0 46 30" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2,6 C14,0 27,2 31,10 C34,15 32,19 29,19"/>
+        <path d="M24.7,23.2 L36,26 L33.2,14.7" stroke-width="2.2"/>
+      </svg>
+    </div>
   </div>
 </section>
 
 <section id="experience" style="margin-top:0;">
   <div class="si" style="padding-top:1.5rem;">
+    <div class="ed-head reveal">
+      <span class="ed-tag">Timeline</span>
+      <span class="ed-num">04</span>
+      <span class="ed-cat">Research · Leadership</span>
+    </div>
     <div class="exp-box reveal">
       <div class="exp-header">
         <div class="exp-header-left">
           <h2 class="exp-title">experience</h2>
-          <button class="exp-toggle" onclick="toggleExp()">view <em class="chevron">↓</em></button>
+          <button class="exp-toggle" data-label="view ↓" onclick="toggleExp()">view <em class="chevron">↓</em><span class="ulbar"></span></button>
         </div>
         <div class="exp-header-right">
           <span class="bc-label">roles</span>
-          <div style="font-size:.78rem;color:var(--mu);line-height:1.6;">instructor · researcher · designer · developer</div>
+          <div style="font-size:.78rem;color:var(--text);line-height:1.6;">researcher · ambassador · instructor · lead · designer</div>
         </div>
       </div>
       <div class="exp-panel" id="exp-panel">
         <div class="exp-grid">
           <div class="exp-item">
             <div>
-              <div class="exp-role">Video Game Development & 3D Modeling Instructor</div>
-              <div class="exp-org">iCode School Franchise · Part-time</div>
-              <div class="exp-desc">Teaching game development and 3D modeling to students. Computer Graphics, CAD, Unity.</div>
+              <div class="exp-role">Undergraduate Student Researcher</div>
+              <div class="exp-org">TokenVerse — GT Expressive Machinery Lab · Part-time</div>
+              <div class="exp-desc">Building shaders, 3D assets, and animations in Blender/Unity to visualize LLM model processes in an educational game.</div>
             </div>
-            <div class="exp-date">Jun 2026 – Present · San Ramon, CA</div>
+            <div class="exp-date">Aug 2026 – Present · Atlanta, GA</div>
+          </div>
+          <div class="exp-item">
+            <div>
+              <div class="exp-role">Product and Design Ambassador</div>
+              <div class="exp-org">Meitu Inc. · Part-time</div>
+              <div class="exp-desc">Analyzing UX mechanics across creative apps with 10M+ users to propose and design feature optimizations.</div>
+            </div>
+            <div class="exp-date">Jul 2026 – Present · Atlanta, GA</div>
+          </div>
+          <div class="exp-item">
+            <div>
+              <div class="exp-role">Project Lead</div>
+              <div class="exp-org">Georgia Tech Video Game Development Club · Part-time</div>
+              <div class="exp-desc">Directing 40+ designers & developers across 3D, VFX, and UI pipelines in a semester long project.</div>
+            </div>
+            <div class="exp-date">Aug 2026 – Present · Atlanta, GA</div>
           </div>
           <div class="exp-item">
             <div>
               <div class="exp-role">Design Board</div>
               <div class="exp-org">Georgia Tech Chinese Student Association · Part-time</div>
-              <div class="exp-desc">Creating visual design assets and graphics using Figma for club events and communications.</div>
+              <div class="exp-desc">Creating visual design assets and graphics in Figma for 1000+ attendee club events.</div>
             </div>
             <div class="exp-date">Sep 2025 – Present · Atlanta, GA</div>
           </div>
           <div class="exp-item">
             <div>
+              <div class="exp-role">Code and 3D Modeling Instructor</div>
+              <div class="exp-org">iCode San Ramon · Full-time</div>
+              <div class="exp-desc">Taught 3D CAD/Blender and Computer Graphics to 50+ students.</div>
+            </div>
+            <div class="exp-date">Jun – Aug 2026 · San Ramon, CA</div>
+          </div>
+          <div class="exp-item">
+            <div>
               <div class="exp-role">Undergraduate Student Researcher</div>
               <div class="exp-org">Georgia Tech VIP Program · Part-time</div>
-              <div class="exp-desc">Prototyped interactive UI/UX components in Figma used by 50+ playtesters for a research-driven electrical power grid game. Collaborated with developers and researchers to implement Unity-compatible assets supporting ML data collection pipelines.</div>
+              <div class="exp-desc">Prototyped UI/UX components in Figma used by 50+ playtesters for a research-driven game.</div>
             </div>
             <div class="exp-date">Aug – Dec 2025 · Atlanta, GA</div>
           </div>
@@ -777,7 +1329,7 @@
             <div>
               <div class="exp-role">Artist & Programmer</div>
               <div class="exp-org">GT VG Dev Club · Part-time</div>
-              <div class="exp-desc">Designed 2D & 3D game assets and implemented interactive features using game scripting in Unity.</div>
+              <div class="exp-desc">Created 2D concept art and implemented features using Unity scripting.</div>
             </div>
             <div class="exp-date">Aug – Dec 2024 · Atlanta, GA</div>
           </div>
@@ -785,7 +1337,7 @@
             <div>
               <div class="exp-role">Teaching Assistant</div>
               <div class="exp-org">Ve Art Studio · Part-time</div>
-              <div class="exp-desc">Assisted in teaching art classes to students of various ages in a studio setting.</div>
+              <div class="exp-desc">Provided one-on-one feedback at weekly art lessons to students aged 6-15.</div>
             </div>
             <div class="exp-date">Sep 2022 – Jan 2024 · San Jose, CA</div>
           </div>
@@ -797,14 +1349,19 @@
 
 <section id="contact">
   <div class="si">
+    <div class="ed-head reveal">
+      <span class="ed-tag">Get In Touch</span>
+      <span class="ed-num">05</span>
+      <span class="ed-cat">Say Hello</span>
+    </div>
     <div class="cbento reveal">
       <div class="cc big">
-        <div><h2>let's work<br/><em>together.</em></h2></div>
+        <div><h2>let's work<br/><em>together.</em> <span class="doodle-star pink" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M12,0 C13,7 17,11 24,12 C17,13 13,17 12,24 C11,17 7,13 0,12 C7,11 11,7 12,0 Z" fill="var(--pink)"/></svg></span></h2></div>
         <p style="margin-top:2rem;">designing and building things that feel alive.</p>
       </div>
       <div class="cc" style="display:flex;flex-direction:column;justify-content:center;">
         <span class="bc-label">say hello</span>
-        <a href="mailto:lhe309@gatech.edu" class="clink p" style="margin-top:0;">lhe309@gatech.edu ↗</a>
+        <a href="mailto:lhe309@gatech.edu" class="clink p" data-label="lhe309@gatech.edu ↗" style="margin-top:0;">lhe309@gatech.edu ↗<span class="ulbar"></span></a>
       </div>
       <div class="cc">
         <span class="bc-label">find me</span>
@@ -827,7 +1384,7 @@ document.addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;});
 (function loop(){cx+=(tx-cx)*.18;cy+=(ty-cy)*.18;const dx=tx-cx;fc.style.left=cx+'px';fc.style.top=cy+'px';fc.style.transform=`translate(-50%,-50%) scaleX(${dx<-.5?-1:1})`;requestAnimationFrame(loop);})();
 
 // ── REVEAL ──
-const revealSel='.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-children';
+const revealSel='.reveal,.reveal-left,.reveal-right,.reveal-scale,.reveal-children,.scribble-cue,.scribble-note';
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}}),{threshold:.1});
 document.querySelectorAll(revealSel).forEach(el=>obs.observe(el));
 
@@ -862,6 +1419,11 @@ function boldTerms(html){
   ];
   terms.forEach(r=>{ html=html.replace(r,'<strong>$1</strong>'); });
   return html;
+}
+
+function secHead(num,title){
+  const color=(parseInt(num,10)%2===0)?'var(--pink)':'var(--blue-block)';
+  return `<div class="sec-head"><span class="sec-num" style="background:${color}">${num}</span><span class="sec-title">${title}</span></div>`;
 }
 
 // ── AUDIO ──
@@ -904,6 +1466,34 @@ function startMusic(){
 }
 function stopMusic(){musicPlaying=false;if(musicNodes){try{musicNodes.gain.linearRampToValueAtTime(0,actx.currentTime+1);}catch(e){}}}
 
+function playPageTurn(){
+  try{
+    const ac=getActx();const t=ac.currentTime;const dur=.5;
+    const bufSize=Math.floor(ac.sampleRate*dur);
+    const buf=ac.createBuffer(1,bufSize,ac.sampleRate);
+    const d=buf.getChannelData(0);
+    for(let i=0;i<bufSize;i++){d[i]=(Math.random()*2-1)*Math.pow(1-i/bufSize,1.4);}
+    const src=ac.createBufferSource();src.buffer=buf;
+    const bp=ac.createBiquadFilter();bp.type='bandpass';bp.Q.value=.8;
+    bp.frequency.setValueAtTime(1100,t);bp.frequency.exponentialRampToValueAtTime(3200,t+.22);bp.frequency.exponentialRampToValueAtTime(900,t+dur);
+    const g=ac.createGain();g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.17,t+.04);g.gain.exponentialRampToValueAtTime(.001,t+dur);
+    src.connect(bp);bp.connect(g);g.connect(ac.destination);
+    src.start(t);src.stop(t+dur);
+    const o=ac.createOscillator(),og=ac.createGain();o.type='triangle';
+    o.frequency.setValueAtTime(190,t+dur*.62);o.frequency.exponentialRampToValueAtTime(85,t+dur*.62+.09);
+    og.gain.setValueAtTime(.055,t+dur*.62);og.gain.exponentialRampToValueAtTime(.001,t+dur*.62+.12);
+    o.connect(og);og.connect(ac.destination);o.start(t+dur*.62);o.stop(t+dur*.62+.14);
+  }catch(e){}
+}
+function openBook(){
+  const el=document.getElementById('bookIntro');
+  if(!el||el.classList.contains('opening'))return;
+  playPageTurn();
+  el.classList.add('opening');
+  try{sessionStorage.setItem('introShown','1');}catch(e){}
+  setTimeout(()=>{el.classList.add('hidden');},1200);
+}
+
 const musicBtn=document.createElement('button');
 musicBtn.id='music-btn';musicBtn.innerHTML='♪';musicBtn.title='toggle music';
 musicBtn.style.cssText='position:fixed;bottom:1.5rem;right:1.5rem;z-index:600;width:36px;height:36px;border-radius:50%;border:var(--bdr);background:rgba(245,250,252,0.92);backdrop-filter:blur(12px);color:var(--mu);font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;cursor:none!important;box-shadow:0 2px 12px rgba(26,63,92,.1);';
@@ -917,14 +1507,22 @@ document.addEventListener('click',()=>{if(!musicPlaying)startMusic();},{once:tru
 function toggleExp(){
   const p=document.getElementById('exp-panel'),b=document.querySelector('.exp-toggle');
   const open=p.classList.toggle('open');
-  b.innerHTML=open?'hide <em class="chevron" style="display:inline-block;transform:rotate(180deg)">↓</em>':'view <em class="chevron">↓</em>';
+  b.dataset.label=open?'hide ↓':'view ↓';
+  b.innerHTML=(open?'hide <em class="chevron" style="display:inline-block;transform:rotate(180deg)">↓</em>':'view <em class="chevron">↓</em>')+'<span class="ulbar"></span>';
 }
-function toggleArt(){
-  const panel=document.getElementById('art-panel'),btn=document.getElementById('art-toggle-btn');
+function togglePanel(panelId,btnId,label){
+  const panel=document.getElementById(panelId),btn=document.getElementById(btnId);
   const isOpen=panel.classList.toggle('open');
   btn.classList.toggle('open',isOpen);
-  btn.innerHTML=isOpen?'hide works <em class="chevron" style="display:inline-block;transform:rotate(180deg)">↓</em>':'view works <em class="chevron">↓</em>';
+  // size the panel to its real content height so nothing gets clipped, instead of a fixed cap
+  panel.style.maxHeight=isOpen?panel.scrollHeight+'px':'0px';
+  btn.dataset.label=isOpen?`hide ${label} ↓`:`view ${label} ↓`;
+  btn.innerHTML=(isOpen?`hide ${label} <em class="chevron" style="display:inline-block;transform:rotate(180deg)">↓</em>`:`view ${label} <em class="chevron">↓</em>`)+'<span class="ulbar"></span>';
 }
+// keep open panels sized correctly if the viewport changes (art-item sizes shift at mobile breakpoints)
+window.addEventListener('resize',()=>{
+  document.querySelectorAll('.art-panel.open').forEach(panel=>{ panel.style.maxHeight=panel.scrollHeight+'px'; });
+});
 
 // ── SLIDESHOW ──
 let _ssIdx=0,_ssTotal=0,_ssId='';
@@ -963,6 +1561,9 @@ function renderSlideshow(media){
       inner=`<iframe src="${m.src}" style="width:100%;height:100%;border:none;" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
     } else if(m.type==='video'){
       inner=`<video src="${m.src}" style="width:100%;height:100%;object-fit:cover;" controls playsinline></video>`;
+    } else if(m.type==='placeholder'){
+      const icon=m.kind==='video'?'🎬':m.kind==='gif'?'🌀':'🖼️';
+      inner=`<div class="ss-placeholder ss-placeholder-intent"><span>${icon}</span><span>${m.caption||'media coming soon'}</span></div>`;
     }
     return `<div class="ss-slide" style="flex:0 0 ${pct}%;">${inner}</div>`;
   }).join('');
@@ -995,10 +1596,12 @@ function renderSlideshow(media){
 const PD={
   'tft':{
     type:'UI/UX · Web',title:'Teamfight Tactics',
+    designGoal:'Give the official website the same bold, competitive energy as the game itself.',
     media:[
       {type:'img',src:'images/tft-cover.png',caption:'website redesign cover'},
+      {type:'placeholder',kind:'gif',caption:'GIF — full page-scroll walkthrough (add later)'},
     ],
-    timeline:'4 weeks',tools:'Figma',role:'UI Designer',
+    timeline:'4 weeks',tools:'Figma',role:'UI Designer',platform:'Web',
     link:'https://www.figma.com/proto/IZbgWxgQzxBhcSGkUbFKDq/TFT-website-redesign?node-id=60-5&p=f&t=zuKy8XitMQyYgsPS-1&scaling=min-zoom&content-scaling=fixed&page-id=60%3A4&starting-point-node-id=60%3A5',linkLabel:'View Prototype',
     link2:'https://www.figma.com/design/IZbgWxgQzxBhcSGkUbFKDq/TFT-website-redesign?node-id=223-2&t=DeDWORau0yayyYue-1',link2Label:'View Design Doc',
     tags:['Figma','UI/UX','Web Design','Redesign','Brand System'],
@@ -1015,53 +1618,79 @@ const PD={
       {t:'Outcome',layout:'half',b:'Thinking in flows and systems — not isolated screens — led to the most polished result. Each page decision referenced back to the brand guidelines established in week one.'},
     ],
     swatches:['#ffdada','#ffa1a1','#d8f6ff','#00E0FF','#ffe6ce','#FFB40F','#FF9C3A','#cfc8ff','#FF5C5C','#8767ff','#6721FF','#006675','#00424c','#002127','#220066','#ce9000','#00b6cf','#aa99ff','#e20000','#008da1'],
+    attributions:['Teamfight Tactics is a Riot Games property. This is an unofficial student redesign concept made for portfolio purposes — not affiliated with or endorsed by Riot Games.'],
   },
 
-  'kinetic':{
-    type:'Game Dev · 3D FPS',title:'Kinetic Vault',
+  'tokenverse':{
+    type:'Research · Technical Art',title:'TokenVerse',
+    designGoal:'Turn the process and layers of an AI model into interactive, educational levels.',
     media:[
-      {type:'img',src:'images/kinetic-cover.png',caption:'kinetic vault — abandoned research facility'},
+      {type:'img',src:'images/tokenverse-cover.png',caption:'tokenverse — visualizing how LLMs work'},
     ],
-    timeline:'December 2025 - Present',tools:'Unity · C# · Figma · GitHub · VSCode',role:'Solo Game Developer',
-    link:null,
-    tags:['Unity','C#','3D','FPS','Narrative','Puzzle','Solo'],
-    overview:'Kinetic Vault is a 3D first-person shooter with narrative and puzzle elements set inside an abandoned research facility. The game blends environmental storytelling, light combat, and interactive puzzles to gradually uncover the player\'s story.',
+    timeline:'Aug 2026 – Present',tools:'Blender · Unity · Shader Graph · VFX Graph',role:'Undergraduate Researcher — 3D & Technical Art',platform:'Web (WebGL)',
+    link:'https://tokenverse.cc/',linkLabel:'Visit TokenVerse',
+    tags:['Blender','Unity URP','Shader Graph','VFX','Research','3D'],
+    overview:'TokenVerse is a GT Expressive Machinery Lab research platform that teaches AI literacy by putting players inside a fictional AI company, letting them see how large language models — and their risks — actually work instead of reading about it. I translate 2D concept art into rigged 3D models, stylized environments, and custom shaders that turn an invisible process (a transformer moving tokens through attention layers) into something players can watch happen in front of them.',
     sections:[
-      {t:'The Player',b:'• Known as Asset-0, the player awakens in an abandoned research lab with no memory or context\n• The environment treats them as a variable to be tracked, tested, and contained\n• Fragments of identity surface through hostile systems, corrupted logs, and environmental cues'},
-      {t:'Narrative',b:'• Story is revealed organically through gameplay, not exposition\n• Asset animations and sound design provide context\n• Corrupted logs and environmental puzzles uncover memories\n• A hint system guides progression through acts'},
-      {t:'Visual Direction',b:'• Inspired by futuristic UI systems, sterile sci-fi interiors, and abstract architectural spaces\n• Influences: Cyberpunk 2077 (diegetic UI), Valorant (clean HUD), DOOM 2016 (pacing), SOMA and Control (atmospheric narrative)'},
-      {t:'Development',b:'• Level layouts designed with player flow in mind\n• Enemy bots placed to introduce pressure without overwhelming\n• Environment assets from Unity Asset Store (Sci-Fi Facility by Triplebrick)\n• Lighting placed manually to shift between sterile and tense environments\n• Menu and UI designed in Figma, assembled in Unity'},
-      {t:'Mechanics',b:'• Healing packs effective when injured\n• Security hover bots that attack the player\n• Gun pickup system\n• Screen view for decoding puzzles (in progress)\n• Weapon swap system (to be implemented)'},
-      {t:'Goals',b:'• Teach gameplay organically through exploration and hints\n• Balance combat, puzzles, and narrative without cutscenes\n• Shift the player from confinement to autonomy'},
+      {t:'The Problem',b:'Most AI literacy content is text or diagrams — easy to skim, hard to internalize. TokenVerse\'s bet is that spatial, game-based learning sticks: if players can walk through a transformer instead of reading about one, the concept becomes memorable.'},
+      {t:'My Process',b:'• Start from the lab\'s 2D concept art and break it into buildable low-poly forms\n• Block out and rig models in Blender, keeping topology light enough for real-time use\n• Bring models into Unity URP and build custom Shader Graphs for token flow, attention highlighting, and transformer-state effects\n• Layer in particle VFX so token movement reads clearly at a glance, iterating against the lab\'s learning-objective research'},
+      {t:'Why Shaders',layout:'half',b:'A transformer moving data through layers is abstract. Custom URP shaders let me visualize that motion directly — color and particle behavior standing in for attention weights and token state — aiming to lift spatial concept retention by 30%+ over static explanations.'},
+      {t:'Designing for Scale',layout:'half',b:'Building for a research platform to be educational resource on AI literacy, so every asset has to hold up in production: light meshes, clean rigs, shaders that run smoothly across devices.'},
+      {t:'Reflection',layout:'full',b:'This is the first project where my 3D art has to serve a research hypothesis, not just a scene. Every shader choice gets checked against whether it actually helps someone understand transformers faster — a different kind of design process than a game, but the same core skill: make something complicated legible at a glance.'},
     ],
+    attributions:['Built as part of the Georgia Tech Expressive Machinery Lab research team — concept direction and learning-objective research from the lab\'s faculty and research staff.'],
   },
-  'crisis':{
-    type:'Game Dev · UI Design',title:'Current Crisis',
+
+  'unraveling':{
+    type:'Game Dev · Psychological Horror',title:'Unraveling',
+    designGoal:'Make anxiety mechanical so players experience the paranoia with several senses.',
     media:[
-      {type:'img',src:'images/crisis-cover.png',caption:'current crisis — power grid simulation'},
+      {type:'img',src:'images/unraveling-cover.png',caption:'unraveling — title screen'},
     ],
-    timeline:'August - December 2025',tools:'Figma · GitHub · Aseprite · MagicaVoxel',role:'UI & Game Asset Designer',
-    link:'https://currentcrisis.net/play',linkLabel:'Play Now',
-    tags:['Figma','UI/UX','3D Assets','MagicaVoxel','Game Design','VIP'],
-    overview:'Current Crisis puts you in the role of a power system operator managing the grid during extreme weather events. Built at Georgia Tech VIP under Dr. Molzahn, it educates the public about energy infrastructure and collects player data to train ML algorithms for real disaster scenarios.',
+    timeline:'Summer 2026 – Present',tools:'Unity (C#) · Blender · Figma · Procreate · GitHub',role:'3D Modeling, Animation, VFX & UI/UX Lead',team:'40+ developers & designers',platform:'PC (Unity)',
+    links:[
+      {href:'https://github.com/UNRAVELING-VGDev/UNRAVELING_VGDev',label:'GitHub ↗'},
+      {href:'https://docs.google.com/document/d/1OOdqOSn0eBqsgbigDzosYCaYzEnZZ5GY8IEgaiX8pzk/edit?tab=t.0#heading=h.euh9eln4u8mb',label:'Design Doc ↗'},
+      {href:'https://discord.gg/44PcM65cn',label:'Discord ↗'},
+    ],
+    tags:['Unity','C#','Blender','Horror','VFX','UI/UX','Team Lead'],
+    overview:'Unraveling is a first/third-person psychological horror game built with the Georgia Tech Video Game Development Club — now 140+ members in our Discord and 40+ active developers and designers. You play as Clay, managing a rising Paranoia meter and blending in with monster classmates using dodge and eye-closing mechanics to survive an ordinary school day. As anxiety distorts Clay\'s senses and environment, each level becomes a metaphor for self-perception and confronting the parts of yourself you\'ve spent your life avoiding.',
     sections:[
-      {t:'Gameplay',layout:'img-full',img:'images/crisis-gameplay.png',b:'Players manage a voxel grid under time pressure — building generators, routing power, responding to disasters. The simulation tracks decisions to inform future ML training pipelines.'},
-      {t:'UI Design',layout:'img-grid',imgs:[
-        {src:'images/crisis-questui.png',cap:'quest & tasklist UI'},
-        {src:'images/crisis-dialoguelog.png',cap:'dialogue log flow'},
-      ],b:'I designed the tasklist, quest system, and pause UI — sourcing pixelated fonts to match the voxel aesthetic, and creating user flows based on playtester feedback from 50+ sessions.'},
-      {t:'UI System Sheet',layout:'img-full',img:'images/crisis-uisheet.png',b:'Full UI component sheet including build menu, time controls, font pairings, quest menu, and skill tree frame — all designed in Figma and implemented Unity-compatible.'},
-      {t:'3D Assets',layout:'img-grid',imgs:[
-        {src:'images/crisis-voxel-hospital.png',cap:'hospital — MagicaVoxel'},
-        {src:'images/crisis-voxel-city.png',cap:'city layout — MagicaVoxel'},
-      ],b:'First time working with MagicaVoxel. I created hospitals, power generators, rural lands, and battery plants — including burned variants for post-disaster game states.'},
-      {t:'Full Asset Library',layout:'img-full',img:'images/crisis-voxel-all.png',b:'Complete voxel asset library showing scale, variation, and the range of building states used across the simulation.'},
-      {t:'Impact',layout:'half',b:'Used by 50+ playtesters. Future iterations will feed player decision data into ML pipelines for real-world power grid research.'},
+      {t:'The Hook',b:'The game turns everyday school tasks — sitting through class, avoiding a teacher\'s gaze — into survival horror by making anxiety mechanical. Every glance, every flinch, has a cost.'},
+      {t:'Story',b:'• Clay\'s anxiety begins manifesting physically, warping the familiar world into a surreal, nightmarish version of itself\n• Rather than confronting the monstrous fears that appear, Clay survives by avoiding and dodging them — but each encounter leaves behind a physical feature that alters appearance and abilities\n• As these traits accumulate, Clay\'s fear eventually separates into its own final-boss form — forcing Clay to stop running and confront it directly'},
+      {t:'Core Loop — Stage 1',b:'• Avoiding Teacher\'s Gaze: a camera raycast detects eye contact while the teacher faces the room, raising the Paranoia meter\n• Suspicion Ladder: sustained eye contact escalates the teacher through low/medium/high states, dramatized through unnatural head movement, snappier turns, and glitch-like animation\n• Dodging & Catching: A/D leaning dodges incoming creature particles; holding a textbook open (E) and closing it on a healing letter (click) lowers Paranoia, with a cooldown that rewards precise timing'},
+      {t:'My Role — Art & UI/UX Pipeline',b:'As lead, I set the pipeline 40+ artists and developers follow: 2D concept → feedback pass → simplified 3D turnaround → low-poly block-out in Blender (1–2 subdivision levels) → material coloring → rigging/animation → FBX export into Unity with a shared toon shader. I also own the UI/UX for the Paranoia and suspicion systems as they come online.'},
+      {t:'Style Guide',layout:'img-full',img:'images/unraveling-styleguide.jpg',b:'The onboarding board I maintain for new artists joining the pipeline — palette, shading rules, and proportions the whole team works from to keep 40+ contributors on one visual direction.'},
+      {t:'Visual Direction',layout:'half',b:'A moody, flat-color palette and anime-adjacent character style, built to stay legible as low-poly 3D — every 2D concept is drawn with the eventual model in mind, not just as illustration.'},
+      {t:'Leading at Scale',layout:'half',b:'I maintain the style guide and modeling pipeline the team follows, review pull requests before merge, and keep our 140+ member Discord aligned on one visual direction across a 40+ person dev team.'},
+      {t:'Reflection',layout:'full',b:'Unraveling is my first time designing systems, not just assets — tying the Paranoia meter, the Suspicion Ladder, and the art pipeline together so gameplay tension and visual tension escalate in lockstep. Still in active development ahead of our next milestone.'},
+      {t:'Team',layout:'half',b:'Krisha U., Hongbi A., and 40+ developers and designers across the Georgia Tech Video Game Development Club.'},
     ],
+    attributions:['Art pipeline and style guide developed together with Krisha U. and Hongbi A. Character and environment concept art produced by the wider GT Video Game Development Club art team.'],
+  },
+
+  'datadump':{
+    type:'Game Jam · Unity',title:'DataDump',
+    designGoal:'Teach the countdown scrap-and-rebuild loop intuitively while capturing player interest.',
+    media:[
+      {type:'img',src:'images/datadump-cover.png',caption:'datadump — cyber city data dump'},
+    ],
+    timeline:'GMTK Game Jam 2026',tools:'Unity · C# · WebGL',role:'Developer',team:'5 developers',platform:'Web (itch.io, WebGL)',
+    link:'https://candyhen127.itch.io/datadump',linkLabel:'Play on itch.io',
+    tags:['Unity','C#','Game Jam','Roguelike','Sci-Fi'],
+    overview:'Built in 48 hours for GMTK Game Jam 2026, DataDump casts you as C.H.U.D., a virus-infected robot scavenging Cyber City\'s data dump. A rogue data virus corrupted the city\'s robots; you scrap the fallen to survive, dragging salvaged Head, Arm, and Leg parts into your own chassis before your own battery runs out.',
+    sections:[
+      {t:'Core Loop',b:'• Scrap defeated robots for parts, then drag-and-drop them into Head / Arm / Leg slots to rebuild yourself mid-run\n• Heads set core battery and defense, Arms set weapon type/speed/damage, Legs set movement and jump height\n• Each enemy type drops one part type, pushing players toward tactical targeting instead of fighting anything that moves\n• A roguelike loop — die, and you\'re back at the start, forcing fast reads on which parts to prioritize each run'},
+      {t:'Jam Constraints',layout:'half',b:'With a fixed jam theme and clock, the drag-and-drop part system had to read instantly with zero onboarding — the whole build/fight loop needed to teach itself in the first minute.'},
+      {t:'Team',layout:'half',b:'Built with Melanie Xie, Andy Chen, Xinyu Su, and Sindhoora Garimella for GMTK Game Jam 2026.'},
+      {t:'Reflection',layout:'full',b:'Jams are a different design muscle than a semester-long project — every mechanic has to earn its complexity immediately. Cutting the part system down to three slot types was the single biggest thing that made DataDump playable within the deadline.'},
+    ],
+    attributions:['Built with Melanie Xie, Andy Chen, Xinyu Su, and Sindhoora Garimella for GMTK Game Jam 2026, held under the jam\'s official theme.'],
   },
 
   'speechwrite':{
     type:'Tool · Python',title:'SpeechWrite',
+    designGoal:'Visualize and measure accent-based speech to text transcription bias for teams building speech tools.',
     media:[
       {type:'img',src:'images/speechwrite-landing.jpg',caption:'landing page — interactive globe'},
       {type:'youtube',src:'https://www.youtube.com/embed/XXunc3s0tvE?si=37788g7bdlP7iiCK&controls=0',caption:'demo — accent bias analysis'},
@@ -1069,8 +1698,9 @@ const PD={
       {type:'img',src:'images/speechwrite-upload.jpg',caption:'upload audio files'},
       {type:'img',src:'images/speechwrite-research.jpg',caption:'research page — phoneme calculations'},
       {type:'img',src:'images/speechwrite-prototype.jpg',caption:'prototype flow'},
+      {type:'placeholder',kind:'video',caption:'Video — live demo walkthrough (add later)'},
     ],
-    timeline:'Hacklytics 2026 · Feb 2026',tools:'Python · OpenAI Whisper · jiwer · Figma · HTML',role:'Developer',
+    timeline:'Hacklytics 2026 · Feb 2026',tools:'Python · OpenAI Whisper · jiwer · Figma · HTML',role:'Developer',team:'2 developers',platform:'Web',
     link:'https://devpost.com/software/speechwright',linkLabel:'View on Devpost',
     link2:'https://github.com/c-mfy/speechwrite',link2Label:'GitHub',
     tags:['Python','OpenAI Whisper','NLP','Phoneme Analysis','React','Speech-to-Text'],
@@ -1090,9 +1720,11 @@ const PD={
       {t:'Prototype',layout:'img-full',img:'images/speechwrite-prototype.jpg'},
       {t:'Team',layout:'half',b:'Xinyu Su, Lydia He. Submitted to Hacklytics 2026: Golden Byte.'},
     ],
+    attributions:['Built with Xinyu Su for Hacklytics 2026. Transcription via OpenAI Whisper; audio and transcripts sourced from the Mozilla Common Voice dataset; phoneme scoring via the jiwer library.'],
   },
   'whisker':{
     type:'Game Dev · 2D',title:'Whisker Woods',
+    designGoal:'Tell a story through game expoloration and map design.',
     media:[
       {type:'img',src:'images/whisker-house-interior2.png',caption:'witch\'s cottage — starting room'},
       {type:'youtube',src:'https://www.youtube.com/embed/GqHy8jTYoRk?si=lR0OJJ5T2UQ6CA0n&controls=0',caption:'gameplay trailer'},
@@ -1100,7 +1732,7 @@ const PD={
       {type:'img',src:'images/whisker-outside-entrance.png',caption:'village entrance'},
       {type:'img',src:'images/whisker-outside-npc.png',caption:'NPC encounter'},
     ],
-    timeline:'March - April 2025',tools:'Unity · C# · VSCode · Git · Procreate',role:'Lead Environment Design & Tilemapping',
+    timeline:'March - April 2025',tools:'Unity · C# · VSCode · Git · Procreate',role:'Lead Environment Design & Tilemapping',team:'5 developers',platform:'PC (Unity)',
     link:null,
     tags:['Unity','C#','2D','Exploration','Narrative','Tilemap'],
     overview:'In a cursed forest, you awaken as a cat — once a powerful wizard now bound by a witch\'s spell. To reclaim your human form you must gather rare items. But the forest itself is withering, and a darker truth awaits.',
@@ -1127,17 +1759,19 @@ const PD={
       {t:'Reflection',layout:'full',b:'3 weeks was tight. The biggest challenge was conveying biome transitions through tilework alone — making each area feel distinct without a palette clash. Future plans include more NPC depth, a quest taskbar, and expanded puzzles.'},
       {t:'Team',layout:'half',b:'Krisha U., Katya G., Bridgette C., Hongbi A., Ilkin M.'},
     ],
+    attributions:['Visual direction drew inspiration from OMORI (atmospheric narrative), Stardew Valley (layered world-building), and Strange Horticulture (environmental storytelling) — all games by their respective studios/developers, referenced here as stylistic inspiration only.'],
   },
 
   'itravl':{
     type:'UI/UX · Mobile',title:'iTravl',
+    designGoal:'Collapse translation, cultural context, and language learning into one place for travelers.',
     media:[
       {type:'img',src:'images/itravl-cover.png',caption:'your personal traveling buddy'},
       {type:'img',src:'images/itravl-mockup-translation.png',caption:'translation mode'},
       {type:'img',src:'images/itravl-mockup-screens.png',caption:'saved phrases & history'},
       {type:'img',src:'images/itravl-mockup-travlbuddy.png',caption:'trvl buddy & learning mode'},
     ],
-    timeline:'Rice Designathon 2025 · 48 hours',tools:'Figma · Canva',role:'UX Researcher & Designer',
+    timeline:'Rice Designathon 2025 · 48 hours',tools:'Figma · Canva',role:'UX Researcher & Designer',team:'3 designers',platform:'Mobile (iOS/Android concept)',
     link:'https://www.figma.com/proto/XkhXo3PMZEk50J9DMpdB1I/iTravl--Copy-?node-id=2-2&t=i6HH3OIKGZRaq7BS-1&starting-point-node-id=2%3A2',linkLabel:'View Prototype',
     tags:['Figma','Mobile','UX Research','Translation','Travel','AI','Designathon'],
     overview:'iTravl is an all-in-one travel companion that helps users overcome language barriers through AI-aided, context-aware translation and cultural insights. Designed in 48 hours at Rice Designathon 2025.',
@@ -1147,6 +1781,7 @@ const PD={
       {t:'Research',layout:'half',b:'We surveyed 20+ travelers and found that high-anxiety moments — ordering food, asking directions, reading signs — were the most underserved.'},
       {t:'Market Gap',layout:'half',b:'Google Translate lacks contextual accuracy. Duolingo focuses on learning, not real-time needs. Maps don\'t solve communication barriers. No one does all three.'},
       {t:'Design Solution',layout:'full',b:'A minimalist two-mode app: Translation Mode for real-time communication, and Learning Mode to review and retain. Users switch between them by tapping the iTravl logo. Cultural notes and etiquette tips appear alongside translations to prevent awkward or disrespectful interactions.'},
+      {t:'User Flow',layout:'img-full',img:'images/itravl-userflow.jpg',b:'Navigation flow mapping how users move between Translation Mode and Learning Mode, including onboarding, scanning, and saved-phrase history.'},
       {t:'Onboarding',layout:'img-left',img:'images/itravl-login.png',portrait:true,b:'Clean onboarding with language selection upfront. The "Let\'s Explore" hero sets the tone — warm, inviting, built for adventure. Log in, create an account, or continue as a guest.'},
       {t:'Translation Mode',layout:'img-right',img:'images/itravl-translation.png',portrait:true,b:'Users type, speak, or scan text for instant translations with audio playback. Context-aware: the app detects location and recent phrases to suggest the most relevant translation — not just a literal one.'},
       {t:'Scanner',layout:'img-full',img:'images/itravl-mockup-translation.png',b:'The scanner reads menus, signs, and handwriting in real time — showing the full flow from photo to translated output in four steps.'},
@@ -1159,51 +1794,54 @@ const PD={
       {t:'All Screens 2',layout:'img-full',img:'images/itravl-allscreens-2.png'},
     ],
     swatches:['#e8e4f8','#c9b8f0','#a87de0','#7c52b8','#4a2d8a','#fce8d8','#f5c4a0','#e8956a','#d4704a','#b84a28','#d8e8f8','#a8c8f0','#6899d8','#3a6ab0','#1a4080'],
+    attributions:['Designed with Anita Lee and Vivian Zhou for Rice Designathon 2025. Survey quote from an anonymous designathon research respondent.'],
+  },
+
+  'balancebar':{
+    type:'Product Design · CAD',title:'BalanceBar',
+    designGoal:'Solve the trade-off between portability and balance on an electric scooter and enable safer one-handed control without compromising steering.',
+    media:[
+      {type:'img',src:'images/balancebar-title.jpg',caption:'BalanceBar — stability meets convenience'},
+      {type:'img',src:'images/balancebar-research.jpg',caption:'research — the trade-off between portability & balance'},
+      {type:'img',src:'images/balancebar-process.jpg',caption:'design process & mindmap'},
+      {type:'img',src:'images/balancebar-render.jpg',caption:'final render'},
+    ],
+    timeline:'ID 2401 · Final Project',tools:'CAD · Sketching',role:'Product Designer (solo)',team:null,platform:'Physical Product / CAD Render',
+    link:null,
+    tags:['Product Design','CAD','Industrial Design','Prototyping'],
+    overview:'BalanceBar is an electric scooter handlebar redesign that improves stability, control, and everyday usability. The system pairs a foldable clip for carrying bags with a size-adjustable, self-balancing cup holder that counters turns and prevents spills, plus a reconfigured control layout that places the throttle and brake on the rider\'s dominant side for safer one-handed use.',
+    sections:[
+      {t:'Research',layout:'half',b:'• Electric scooters are optimized for portability but lack storage — riders carry items by hand or hang them on the handlebars, shifting the center of gravity and compromising steering stability\n• Scooter controls typically require both hands, limiting a rider\'s ability to safely adjust belongings or check directions\n• User surveys found drinks especially problematic — vibration and lack of balance make spills likely'},
+      {t:'User Study',layout:'half',b:'Most scooter trips are short and convenience-driven, often involving small personal items like bags, drinks, or backpacks. Without secure storage, riders improvise with unsafe one-handed carrying — pointing to a clear need for a design that supports everyday carrying without sacrificing balance.'},
+      {t:'Design Process',b:'Initial sketches explored ways to redistribute weight and add storage without altering the scooter\'s own structure. Prototyping then focused on an attachment that could self-stabilize carried items while staying compact — iterating on hook placement, cup-holder mechanisms, and control configurations. The final design integrates a foldable bag clip, a self-balancing cup holder, and a reconfigured handlebar system for safer, more inclusive one-handed use.'},
+      {t:'Final Design',layout:'full',b:'• Foldable clip for carrying bags, stowed flat against the handlebar when not in use\n• Size-adjustable, self-balancing cup holder that counters turns and prevents spills during travel\n• Redesigned control layout places the throttle and brake on the rider\'s dominant side, enabling safer one-handed interaction\n• Maintains the scooter\'s original portability and inclusivity while closing the gap between convenience and usability'},
+      {t:'Reflection',layout:'half',b:'The biggest constraint was designing an attachment that solved balance and storage together without adding bulk or altering the scooter\'s core structure — every iteration had to earn its place on an already compact handlebar.'},
+      {t:'Team',layout:'half',b:'Solo project for ID 2401.'},
+    ],
+    attributions:['Solo final project for ID 2401.'],
   },
 
   'spendwise':{
     type:'Mobile App · Java',title:'SpendWise',
+    designGoal:'Make budgeting and expense tracking collaborative and intuitive.',
     media:[
       {type:'img',src:'images/spendwise-hero.png',caption:'spendwise — budget smarter, save together'},
     ],
-    timeline:'September – November 2025 · 4 sprints',tools:'Java · XML · Android Studio · Firebase · Ollama API · GitHub',role:'Developer & Web Deployment',
+    timeline:'September – November 2025 · 4 sprints',tools:'Java · XML · Android Studio · Firebase · Ollama API · GitHub',role:'Developer & Web Deployment',team:'4 developers',platform:'Android',
     link:'https://lydia2s.github.io/SpendWiseApp/',linkLabel:'View Webpage',
     tags:['Java','Android','Firebase','AI','MVVM','Agile','Mobile'],
     overview:'SpendWise is a full-stack Android finance app for college students — real-time budget tracking, an AI financial assistant, and group savings circles. Built in 4 Agile sprints using MVVM architecture and Firebase.',
     sections:[
-      {t:'My Role',layout:'full',b:'I was responsible for the navigation architecture, Firebase budget tracking integration, the GitHub Pages documentation site, and factory method patterns for budget creation. Across 4 sprints I built the foundation the team iterated on.'},
-      {t:'Sprint 1',layout:'half',b:'Built the 5-tab navigation bar and wired up Firebase for real-time budget tracking. Implemented a value calculator for spending thresholds.'},
-      {t:'Sprint 2',layout:'half',b:'Connected View UI to ViewModel via databinding. Implemented budget logic with factory and strategy design patterns following SOLID principles.'},
-      {t:'Sprint 3',layout:'half',b:'Built the savings circle UI with group invite flow and reminders that trigger when budgets are exceeded or expenses go unlogged.'},
-      {t:'Sprint 4',layout:'half',b:'Deployed the project documentation to GitHub Pages and implemented the factory method pattern for programmatic budget creation.'},
-      {t:'quote',layout:'quote',b:'Built on MVVM architecture with SOLID principles and GRASP patterns — low coupling, high cohesion, and clean separation between UI and business logic.'},
-      {t:'Architecture',layout:'img-full',img:'images/spendwise-userjourney.png',b:'Three core user flows: initialization, expense tracking with smart notifications, and AI-powered advice with savings goal setting.'},
-      {t:'Domain Model',layout:'img-full',img:'images/spendwise-domainmodel.png'},
-      {t:'Sequence Diagrams',layout:'img-grid',imgs:[
-        {src:'images/spendwise-sd-expense.png',cap:'expense entry'},
-        {src:'images/spendwise-sd-savings.png',cap:'savings circle invitation'},
-      ]},
-      {t:'Class Diagram',layout:'img-full',img:'images/spendwise-classdiagram.png'},
-      {t:'Light Mode',layout:'img-grid',imgs:[
-        {src:'images/spendwise-dashboard-light2.png',cap:'dashboard',portrait:true},
-        {src:'images/spendwise-budgets-light2.png',cap:'budgets',portrait:true},
-        {src:'images/spendwise-expenselog-light2.png',cap:'expense log',portrait:true},
-        {src:'images/spendwise-savingscircle-light.png',cap:'savings circle',portrait:true},
-        {src:'images/spendwise-chatbot-light2.png',cap:'AI assistant',portrait:true},
-        {src:'images/spendwise-reminder.png',cap:'expense reminder',portrait:true},
-      ]},
-      {t:'Dark Mode',layout:'img-grid',imgs:[
-        {src:'images/spendwise-dashboard-dark.png',cap:'dashboard',portrait:true},
-        {src:'images/spendwise-budgets-dark.png',cap:'budgets',portrait:true},
-        {src:'images/spendwise-expenselog-dark.png',cap:'expense log',portrait:true},
-        {src:'images/spendwise-savingscircle-create-dark.png',cap:'create circle',portrait:true},
-        {src:'images/spendwise-chatbot-dark.png',cap:'AI assistant',portrait:true},
-        {src:'images/spendwise-reminder2.png',cap:'first-time prompt',portrait:true},
-      ]},
-      {t:'Reflection',layout:'half',b:'The biggest challenge was real-time Firebase sync — especially for the savings circle where multiple users update the same document simultaneously.'},
+      {t:'My Role',layout:'full',b:'• Navigation architecture\n• Firebase budget-tracking integration\n• GitHub Pages documentation site\n• Factory method patterns for budget creation'},
+      {t:'Sprint 1',layout:'half',b:'• Built the 5-tab navigation bar\n• Wired up Firebase for real-time budget tracking\n• Built a spending-threshold calculator'},
+      {t:'Sprint 2',layout:'half',b:'• Connected View UI to ViewModel via databinding\n• Implemented budget logic with factory & strategy patterns (SOLID)'},
+      {t:'Sprint 3',layout:'half',b:'• Built the savings circle UI with group invite flow\n• Added reminders for exceeded budgets or unlogged expenses'},
+      {t:'Sprint 4',layout:'half',b:'• Deployed project docs to GitHub Pages\n• Implemented factory method pattern for budget creation'},
+      {t:'Reflection',layout:'half',b:'• Biggest challenge was real-time Firebase sync\n• Especially for savings circles with simultaneous multi-user updates'},
       {t:'Team',layout:'half',b:'Aarya A., Isabella H., Kareena M., Julia Y.'},
     ],
     swatches:['#e8f5e8','#b8ddb8','#78b878','#4a8a4a','#1a5a1a','#f8f5e0','#e8d888','#c8a830','#a07818','#785000','#fff0e0','#f8d0a0','#e8a050','#c07830','#904000'],
+    attributions:['Built with Aarya A., Isabella H., Kareena M., and Julia Y. AI financial assistant powered by the Ollama API; data sync and auth via Firebase.'],
   },
 
 };
@@ -1217,35 +1855,55 @@ function openModal(id){
   // title + tags
   h+=`<div class="mbc full"><span class="cl">${p.type}</span><div class="ct">${p.title}</div><div class="mtags" style="margin-top:.7rem;">${p.tags.map(t=>`<span class="mti">${t}</span>`).join('')}</div></div>`;
 
+  // links — moved to the top so it's clickable right away. Supports p.links[] (any count) or legacy p.link/p.link2.
+  const linkList=p.links?p.links:[
+    ...(p.link?[{href:p.link,label:p.linkLabel}]:[]),
+    ...(p.link2?[{href:p.link2,label:p.link2Label}]:[]),
+  ];
+  if(linkList.length){
+    h+=`<div class="mbc full link-top"><span class="cl">Links</span><div style="display:flex;align-items:center;gap:1.3rem;flex-wrap:wrap;">${linkList.map(l=>`<a href="${l.href}" target="_blank" class="ml big" data-label="${l.label}">${l.label}<span class="ulbar"></span></a>`).join('')}</div></div>`;
+  } else {
+    h+=`<div class="mbc full link-top"><span class="cl">Live Link</span><div class="cv" style="color:var(--mu)">Not yet available</div></div>`;
+  }
+
+  // post-it — design goal
+  if(p.designGoal) h+=`<div class="postit"><span class="postit-label">Design Goal</span>${p.designGoal}</div>`;
+
   // slideshow — below title, contained in rounded bento frame
   h+=renderSlideshow(p.media);
 
-  // meta cells
+  // meta cells — top-line items
   h+=`<div class="mbc"><span class="cl">Timeline</span><div class="cv">${p.timeline}</div></div>`;
   h+=`<div class="mbc"><span class="cl">Tools</span><div class="cv">${p.tools}</div></div>`;
   h+=`<div class="mbc"><span class="cl">Role</span><div class="cv">${p.role}</div></div>`;
+  if(p.team) h+=`<div class="mbc"><span class="cl">Team</span><div class="cv">${p.team}</div></div>`;
+  if(p.platform) h+=`<div class="mbc${p.team?' full':''}"><span class="cl">Platform</span><div class="cv">${p.platform}</div></div>`;
 
-  // links
-  if(p.link&&p.link2){
-    h+=`<div class="mbc" style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;"><a href="${p.link}" target="_blank" class="ml">${p.linkLabel}</a><a href="${p.link2}" target="_blank" class="ml">${p.link2Label}</a></div>`;
-  } else if(p.link){
-    h+=`<div class="mbc" style="display:flex;align-items:center;"><a href="${p.link}" target="_blank" class="ml">${p.linkLabel}</a></div>`;
-  } else {
-    h+=`<div class="mbc"><span class="cl">Live Link</span><div class="cv" style="color:var(--mu)">Not yet available</div></div>`;
-  }
-
-  // overview
+  // overview — numbered as 01 Summary
   {
     const lines=p.overview.split('\n').filter(l=>l.trim());
     const body=lines.map(l=>l.trim().startsWith('•')?`<div class="cb-bullet">${boldTerms(l.replace(/^•\s*/,''))}</div>`:`<p class="cb">${boldTerms(l)}</p>`).join('');
-    h+=`<div class="mbc full"><span class="cl">Overview</span><div class="cb-body">${body}</div></div>`;
+    h+=`<div class="mbc full">${secHead('01','Summary')}<div class="cb-body">${body}</div></div>`;
   }
 
   // sections — supports layout: 'full'|'half'|'img-full'|'img-left'|'img-right'|'img-grid'
+  // pre-pass: a run of consecutive 'half' sections pairs up two-per-row; if the run has an
+  // odd count, the last section in that run gets widened to full so nothing sits alone
+  // beside an empty cell.
+  const halfForceFull=new Array(p.sections.length).fill(false);
+  {
+    let runStart=-1;
+    for(let i=0;i<=p.sections.length;i++){
+      const isHalf=p.sections[i]&&p.sections[i].layout==='half';
+      if(isHalf){ if(runStart===-1) runStart=i; }
+      else if(runStart!==-1){ if((i-runStart)%2===1) halfForceFull[i-1]=true; runStart=-1; }
+    }
+  }
   p.sections.forEach((s,i)=>{
     const lines=(s.b||'').split('\n').filter(l=>l.trim());
     const body=lines.map(l=>l.trim().startsWith('•')?`<div class="cb-bullet">${boldTerms(l.replace(/^•\s*/,''))}</div>`:`<p class="cb">${boldTerms(l)}</p>`).join('');
-    const textBlock=body?`<span class="cl">${s.t}</span><div class="cb-body">${body}</div>`:`<span class="cl">${s.t}</span>`;
+    const num=String(i+2).padStart(2,'0');
+    const textBlock=body?`${secHead(num,s.t)}<div class="cb-body">${body}</div>`:secHead(num,s.t);
 
     if(s.layout==='img-full'&&s.img){
       // Always contain so nothing gets clipped; white bg so no blue box on fail
@@ -1292,23 +1950,24 @@ function openModal(id){
         </div>`;
       }).join('');
       h+=`<div class="mbc full" style="padding:0;overflow:hidden;">
-        <div style="padding:.75rem 1.4rem;border-bottom:var(--bdr);">${s.b?textBlock:`<span class="cl">${s.t}</span>`}</div>
+        <div style="padding:.75rem 1.4rem;border-bottom:var(--bdr);">${s.b?textBlock:secHead(num,s.t)}</div>
         <div style="display:grid;grid-template-columns:${cols};gap:0;background:#f8fbfd;">${imgCells}</div>
       </div>`;
     } else if(s.layout==='quote'){
       h+=`<div class="mbc-quote"><div class="quote-text">${s.b}</div></div>`;
     } else if(s.layout==='half'){
-      // track half-pairs; odd-indexed halves check if next is also half
-      const nextIsHalf = p.sections[i+1] && p.sections[i+1].layout==='half';
-      h+=`<div class="mbc${nextIsHalf?'':' full'}">${textBlock}</div>`;
+      h+=`<div class="mbc${halfForceFull[i]?' full':''}">${textBlock}</div>`;
     } else {
-      const isFull = s.layout==='full' || i%3===0;
-      h+=`<div class="mbc${isFull?' full':''}"><span class="cl">${s.t}</span><div class="cb-body">${body}</div></div>`;
+      // no explicit layout — always full-width, so a section's length never leaves an empty cell beside it
+      h+=`<div class="mbc full">${secHead(num,s.t)}<div class="cb-body">${body}</div></div>`;
     }
   });
 
   // swatches
   if(p.swatches) h+=`<div class="mbc full"><span class="cl">Color Palette</span><div class="swg">${p.swatches.map(c=>`<div class="sw" style="background:${c}" title="${c}"></div>`).join('')}</div></div>`;
+
+  // attributions
+  if(p.attributions&&p.attributions.length) h+=`<div class="mbc full"><span class="cl">Attributions</span><div class="cb-body">${p.attributions.map(a=>`<div class="cb-bullet">${boldTerms(a)}</div>`).join('')}</div></div>`;
 
   document.getElementById('mc').innerHTML=h;
   document.getElementById('mp').scrollTop=0;
@@ -1325,53 +1984,91 @@ function closeModal(){
   playCardClose();
 }
 
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+function openLightbox(src,caption){
+  const lb=document.getElementById('lb');
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-cap').textContent=caption||'';
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',e=>{
+  const img=e.target.closest('.art-item img');
+  if(img&&img.naturalWidth>0){
+    e.stopPropagation();
+    const info=img.closest('.art-item').querySelector('.art-item-info');
+    const cap=info?[info.querySelector('.art-name')?.textContent,info.querySelector('.art-note')?.textContent].filter(Boolean).join(' — '):'';
+    openLightbox(img.src,cap);
+  }
+});
+document.getElementById('lb-img').addEventListener('click',e=>e.stopPropagation());
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();closeLightbox();}});
 </script>
 
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script>
+(function(){
+  const svg=document.getElementById('ac');
+  if(!svg)return;
+  const wrap=svg.parentElement;
+  const VBW=330,VBH=300;
+  const MX0=30,MX1=VBW-30,MY0=50,MY1=VBH-62;
+  const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-<script type="module">
-import * as THREE from 'three';
-const canvas=document.getElementById('ac');
-const wrapper=canvas.parentElement;
-const gS=()=>({w:wrapper.clientWidth,h:wrapper.clientHeight});
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:false});
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-let sz=gS();renderer.setSize(sz.w,sz.h);renderer.setClearColor(0xb8dff0,1);
-const scene=new THREE.Scene();scene.background=new THREE.Color(0xb8dff0);scene.fog=new THREE.Fog(0xaad8ec,14,40);
-const camera=new THREE.PerspectiveCamera(50,sz.w/sz.h,.1,100);camera.position.set(0,0,16);
-const BX=5.2,BY=3.4;
-scene.add(new THREE.AmbientLight(0xd0e8f4,2.8));
-const sun=new THREE.DirectionalLight(0xffffff,2.4);sun.position.set(5,10,8);scene.add(sun);
-const fill=new THREE.DirectionalLight(0xb0d0f0,1.0);fill.position.set(-6,2,5);scene.add(fill);
-const wm=new THREE.MeshPhysicalMaterial({color:0x78c0e0,transmission:.85,roughness:0,thickness:4,transparent:true,opacity:.40,side:THREE.FrontSide,depthWrite:false});
-scene.add(new THREE.Mesh(new THREE.BoxGeometry(12,8.5,7),wm));
-const surfGeo=new THREE.PlaneGeometry(12,7,22,22);
-const surfMat=new THREE.MeshPhysicalMaterial({color:0x98d0e8,transparent:true,opacity:.45,roughness:.04,side:THREE.DoubleSide,depthWrite:false});
-const surface=new THREE.Mesh(surfGeo,surfMat);surface.rotation.x=-Math.PI/2;surface.position.y=4.1;scene.add(surface);
-const sm=new THREE.Mesh(new THREE.BoxGeometry(12,.4,7),new THREE.MeshLambertMaterial({color:0xb8d4e4}));sm.position.y=-4.4;scene.add(sm);
-function mkSW(x,z,n){const g=new THREE.Group();const m=new THREE.MeshPhysicalMaterial({color:0x68c0a0,transparent:true,opacity:.82,roughness:.7});let py=-4.2;for(let i=0;i<n;i++){const s=new THREE.Mesh(new THREE.CylinderGeometry(.055,.09,.86,5),m);const l=Math.sin(i*1.3)*.2;py+=.72;s.position.set(l*i*.13,py,0);s.rotation.z=l*.4;g.add(s);}g.position.set(x,0,z);scene.add(g);}
-mkSW(-5,-1.5,8);mkSW(-3.5,2,6);mkSW(0,-2.5,7);mkSW(3,2.5,9);mkSW(5,-1,6);mkSW(-1.5,2.8,5);
-const pm=new THREE.MeshLambertMaterial({color:0x90b8cc}),cm=new THREE.MeshLambertMaterial({color:0xf09898});
-for(let i=0;i<14;i++){const isC=i%3===0;const p=new THREE.Mesh(new THREE.SphereGeometry(.1+Math.random()*(isC?.22:.14),7,7),isC?cm:pm);p.position.set((Math.random()-.5)*10,-4.2+Math.random()*.2,(Math.random()-.5)*5);scene.add(p);}
-function mkF(x,y,s){const g=new THREE.Group();const m=new THREE.MeshBasicMaterial({color:0x5888b0,transparent:true,opacity:.14+Math.random()*.14,side:THREE.DoubleSide});const n=5+Math.floor(Math.random()*3);for(let i=0;i<n;i++){const a=(i/n)*Math.PI*2;const p=new THREE.Mesh(new THREE.CircleGeometry(.32+Math.random()*.18,6),m);p.position.set(Math.cos(a)*.48*s,Math.sin(a)*.48*s,0);p.scale.set(s*.8,s*1.5,1);p.rotation.z=a+Math.PI/2;g.add(p);}g.add(new THREE.Mesh(new THREE.CircleGeometry(.2*s,8),m));const sm2=new THREE.MeshBasicMaterial({color:0x4070a0,transparent:true,opacity:.12});const st=new THREE.Mesh(new THREE.PlaneGeometry(.05*s,2*s),sm2);st.position.y=-1.2*s;g.add(st);g.position.set(x,y,-3.4);g.rotation.z=(Math.random()-.5)*.5;scene.add(g);}
-[[-5,1.8,1],[-2.5,2.7,.85],[1.2,3,.1],[4.2,1.6,.9],[-5.8,.2,.8],[5.2,.5,.75],[-1,2.3,.7],[3,-.8,.9]].forEach(([x,y,s])=>mkF(x,y,s));
-const caustics=Array.from({length:7},(_,i)=>{const c=new THREE.Mesh(new THREE.PlaneGeometry(1.6+Math.random()*1.2,.1+Math.random()*.08),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.06,side:THREE.DoubleSide,depthWrite:false}));c.rotation.x=-Math.PI/2;c.position.set((Math.random()-.5)*9,3.9,(Math.random()-.5)*4);c._spd=.003+Math.random()*.003;c._off=Math.random()*Math.PI*2;scene.add(c);return c;});
-const mw=new THREE.Vector3(0,0,0);
-window.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();const nx=((e.clientX-r.left)/r.width)*2-1;const ny=-((e.clientY-r.top)/r.height)*2+1;mw.set(Math.max(-BX,Math.min(BX,nx*BX)),Math.max(-BY,Math.min(BY,ny*BY)),0);});
-function mkFish(bc,fc,sc){const g=new THREE.Group();const bm=new THREE.MeshPhysicalMaterial({color:bc,roughness:.35,metalness:.08,transparent:true,opacity:.96});const fm=new THREE.MeshPhysicalMaterial({color:fc,transparent:true,opacity:.55,roughness:.15,side:THREE.DoubleSide});const body=new THREE.Mesh(new THREE.SphereGeometry(1,20,14),bm);body.scale.set(1.35,.95,.75);g.add(body);const head=new THREE.Mesh(new THREE.SphereGeometry(.58,12,10),bm);head.position.set(1.15,.08,0);g.add(head);const ew=new THREE.MeshBasicMaterial({color:0xffffff}),eb=new THREE.MeshBasicMaterial({color:0x111111});for(const s of[-1,1]){const e1=new THREE.Mesh(new THREE.SphereGeometry(.1,8,8),ew);e1.position.set(1.45,.22,s*.42);g.add(e1);const e2=new THREE.Mesh(new THREE.SphereGeometry(.06,6,6),eb);e2.position.set(1.52,.22,s*.44);g.add(e2);}for(const s of[-1,1]){const t=new THREE.Mesh(new THREE.ConeGeometry(.6,1.6,4),fm);t.rotation.z=Math.PI/2+s*.4;t.position.set(-1.5,s*.18,0);g.add(t);}const tf=new THREE.Mesh(new THREE.ConeGeometry(.22,.75,3),fm);tf.position.set(.15,.92,0);g.add(tf);for(const s of[-1,1]){const pf=new THREE.Mesh(new THREE.ConeGeometry(.13,.55,3),fm);pf.rotation.z=s*1.1;pf.rotation.x=s*.3;pf.position.set(.55,-.28,s*.55);g.add(pf);}g.scale.setScalar(sc);return g;}
-const FD=[[0xe07030,0xf8c080,.60,1.0,.5,.5,.3,.034,0],[0xf5f0e0,0xfff8ee,.46,-2.5,-.8,-2,-.6,.025,1.5],[0xe85040,0xff9090,.34,2.5,1.5,2,1.2,.042,2.8],[0xd06820,0xf0a060,.52,-1,1.2,-.5,.8,.03,4.2],[0xf0d0b0,0xffeedd,.29,3.5,-1.5,3,-1,.05,.7],[0xc84030,0xee8060,.38,-3,.5,-2.5,.2,.038,3.3],[0xe8b050,0xffd890,.27,0,-1.5,.5,-1.2,.055,5.1],[0xfff0d8,0xffffff,.42,-4,-.2,-3.5,-.4,.022,2.1]];
-const fishes=FD.map(([bc,fc,sc,sx,sy,ox,oy,sp,ph])=>{const mesh=mkFish(bc,fc,sc);mesh.position.set(sx,sy,0);scene.add(mesh);return{mesh,ox,oy,sp,ph,vel:new THREE.Vector3()};});
-const bm2=new THREE.MeshPhysicalMaterial({color:0xddf4ff,transmission:.94,roughness:0,transparent:true,opacity:.5});
-const bubbles=Array.from({length:24},()=>{const r=.035+Math.random()*.1;const b=new THREE.Mesh(new THREE.SphereGeometry(r,8,8),bm2);b.position.set((Math.random()-.5)*10,-4+Math.random()*3,(Math.random()-.5)*5);b._s=.012+Math.random()*.02;b._w=Math.random()*Math.PI*2;scene.add(b);return b;});
-window.addEventListener('resize',()=>{sz=gS();camera.aspect=sz.w/sz.h;camera.updateProjectionMatrix();renderer.setSize(sz.w,sz.h);});
-let frame=0;
-(function animate(){requestAnimationFrame(animate);frame++;const t=frame*.01;
-const pos=surface.geometry.attributes.position;for(let i=0;i<pos.count;i++){const x=pos.getX(i),z=pos.getZ(i);pos.setY(i,Math.sin(x*.5+t*1.2)*.06+Math.sin(z*.8+t*.9)*.04);}pos.needsUpdate=true;
-fishes.forEach(f=>{const ttx=Math.max(-BX,Math.min(BX,mw.x+f.ox));const tty=Math.max(-BY,Math.min(BY,mw.y+f.oy));const dx=ttx-f.mesh.position.x,dy=tty-f.mesh.position.y;let nx=f.mesh.position.x+dx*f.sp;let ny=f.mesh.position.y+dy*f.sp+Math.sin(t*1.1+f.ph)*.007;f.mesh.position.x=Math.max(-BX,Math.min(BX,nx));f.mesh.position.y=Math.max(-BY,Math.min(BY,ny));f.mesh.rotation.z=Math.sin(t*1.8+f.ph)*.055;f.vel.x+=dx*.0008;f.vel.multiplyScalar(.87);if(Math.abs(f.vel.x)>.0005)f.mesh.rotation.y=f.vel.x<0?0:Math.PI;});
-bubbles.forEach(b=>{b.position.y+=b._s;b.position.x+=Math.sin(t*.6+b._w)*.003;if(b.position.y>4.5)b.position.y=-4.5;});
-caustics.forEach((c,i)=>{c.position.x+=Math.sin(t*c._spd*8+c._off)*.005;c.material.opacity=.04+Math.abs(Math.sin(t*c._spd*6+i))*.07;});
-renderer.render(scene,camera);})();
+  const FISH=[
+    {el:document.getElementById('fish1'),ox:26,oy:-16,sp:.05,ph:0,sc:1},
+    {el:document.getElementById('fish2'),ox:-42,oy:12,sp:.032,ph:1.9,sc:.8},
+    {el:document.getElementById('fish3'),ox:10,oy:32,sp:.055,ph:3.5,sc:.66}
+  ].filter(f=>f.el);
+  FISH.forEach(f=>{f.x=VBW*.5+f.ox;f.y=VBH*.42+f.oy;f.facing=1;});
+
+  if(reduceMotion){
+    FISH.forEach(f=>{f.el.setAttribute('transform',`translate(${f.x},${f.y}) scale(${f.sc},${f.sc})`);});
+    return;
+  }
+
+  let mouse={x:VBW*.5,y:VBH*.42},active=false,lastMove=0;
+  function ptFromEvent(e){
+    const r=svg.getBoundingClientRect();
+    const p=e.touches?e.touches[0]:e;
+    const nx=(p.clientX-r.left)/r.width,ny=(p.clientY-r.top)/r.height;
+    return{x:nx*VBW,y:ny*VBH};
+  }
+  function onMove(e){
+    const p=ptFromEvent(e);
+    mouse.x=Math.max(MX0,Math.min(MX1,p.x));
+    mouse.y=Math.max(MY0,Math.min(MY1,p.y));
+    active=true;lastMove=performance.now();
+  }
+  wrap.addEventListener('mousemove',onMove);
+  wrap.addEventListener('touchmove',onMove,{passive:true});
+  wrap.addEventListener('mouseleave',()=>{active=false;});
+
+  let t=0;
+  (function frame(){
+    requestAnimationFrame(frame);
+    t+=.016;
+    const idle=!active||(performance.now()-lastMove>4200);
+    FISH.forEach(f=>{
+      let tx,ty;
+      if(idle){
+        tx=VBW*.5+Math.sin(t*.5+f.ph)*72+f.ox*.4;
+        ty=VBH*.42+Math.sin(t*.7+f.ph*1.3)*38+f.oy*.4;
+      }else{
+        tx=mouse.x+f.ox;ty=mouse.y+f.oy;
+      }
+      tx=Math.max(MX0,Math.min(MX1,tx));ty=Math.max(MY0,Math.min(MY1,ty));
+      const dx=tx-f.x,dy=ty-f.y;
+      f.x+=dx*f.sp;f.y+=dy*f.sp+Math.sin(t*1.2+f.ph)*.15;
+      if(Math.abs(dx)>1.4)f.facing=dx<0?-1:1;
+      const wobble=Math.sin(t*3+f.ph)*4;
+      f.el.setAttribute('transform',`translate(${f.x},${f.y}) scale(${f.sc*f.facing},${f.sc}) rotate(${wobble})`);
+    });
+  })();
+})();
 </script>
 </body>
 </html>
