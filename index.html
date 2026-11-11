@@ -229,7 +229,6 @@
     .foot-links a span{color:var(--mu);transition:transform .45s var(--ease);}
     .foot-links a:hover{color:var(--blue);padding-left:.35rem;}
     .foot-links a:hover span{transform:translate(2px,-2px);color:var(--blue);}
-    .foot-links .todo{margin-top:.75rem;justify-self:start;}
     .foot-meta{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:clamp(3rem,5vw,4.5rem);padding-top:1.1rem;border-top:1px solid rgba(14,16,19,.1);font-size:.8rem;color:var(--mu);}
     .foot-meta button{color:var(--mu);font-size:.8rem;}
     .foot-meta button:hover{color:var(--ink);}
@@ -310,7 +309,6 @@
     .dev-screen>img,.dev-screen>video{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;}
     .dev-screen>img.zoom{cursor:zoom-in;}
     .dev-frame{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;user-select:none;}
-    .dev .ph{position:absolute;inset:0;aspect-ratio:auto;}
     .stage{position:relative;aspect-ratio:16/10;background:var(--band);display:flex;align-items:center;justify-content:center;overflow:hidden;}
     .stage .dev{height:86%;width:auto;max-width:none;}
     .stage .snd{top:auto;bottom:1rem;right:1rem;}
@@ -358,16 +356,6 @@
     .next-media{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--soft);}
     .next-media img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),opacity .7s;}
     .next:hover .next-media img{transform:scale(1.04);}
-
-    /* ════════════ PLACEHOLDERS (draft mode) ════════════ */
-    .ph{aspect-ratio:16/9;border:1.5px dashed #b6c1cb;background:repeating-linear-gradient(135deg,#f7f9fa 0 12px,#eef2f5 12px 24px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.45rem;text-align:center;padding:1.25rem;color:#56616b;}
-    .ph b{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;}
-    .ph span{font-size:.88rem;max-width:26rem;line-height:1.45;}
-    .ph code{font-size:.72rem;color:#8a949d;word-break:break-all;}
-    .todo{display:inline;background:#fff1f4;border:1px dashed var(--pink);color:#a81d3a;padding:.05rem .45rem;border-radius:4px;font-size:.9em;}
-    .draft-badge{position:fixed;left:max(1rem,env(safe-area-inset-left));bottom:max(1rem,env(safe-area-inset-bottom));z-index:60;background:var(--ink);color:#fff;font-size:.75rem;padding:.55rem .9rem;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.2);display:flex;gap:.6rem;align-items:center;}
-    .draft-badge a{color:#9fc0ff;}
-    .draft-badge button{color:#8b929b;font-size:.9rem;line-height:1;}
 
     /* ════════════ IMAGE FADE-IN, REVEALS, CURSOR, TOAST ════════════ */
     html.js img.fade{opacity:0;}
@@ -685,24 +673,14 @@
 <script>
 /* ═══════════════════════════════════════════════════════════════
    SETTINGS
-   SHOW_PLACEHOLDERS = true  → every missing GIF/video/image and every
-   "TODO" line shows as a dashed box so you can see what to make.
-   Set it to false before you publish: unfinished boxes and TODO lines
-   disappear, and sections that end up empty are skipped.
-   Preview publish mode any time with ?draft=0 on the URL.
-
-   FILLING IN MEDIA: every dashed box shows a file name, e.g.
-   "Save as images/whisker-greybox.png". Save your file under that name
-   (any of .png .jpg .jpeg .webp .gif, or .mp4 .webm .mov for videos) and it
-   appears on its own; no code changes. A hero loop (videos/<project>-hero.mp4)
-   also plays as the card's hover preview. Export MP4 (H.264), muted,
-   5–8 s, 1920×1080, under ~10 MB so it plays on iPhone too.
+   ADDING MEDIA LATER: a media entry like {ph:'image', label:'…', file:'images/name'}
+   shows images/name.png/.jpg/.jpeg/.webp/.gif (or .mp4/.webm/.mov for
+   ph:'gif'/'video') as soon as that file exists. If it doesn't exist, the slot
+   is simply left out, so visitors never see an empty box.
    ═══════════════════════════════════════════════════════════════ */
-const SHOW_PLACEHOLDERS = true;
 const ARTSTATION_URL = '';            // optional; leave empty to hide the link
 const RESUME_URL = 'resume.pdf';      // put your resume PDF next to index.html
 
-const DRAFT = SHOW_PLACEHOLDERS && new URLSearchParams(location.search).get('draft') !== '0';
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const FINE = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const $ = (s, r = document) => r.querySelector(s);
@@ -1432,20 +1410,14 @@ const EXP = [
    HELPERS
    ═══════════════════════════════════════════════════════════════ */
 const isTodo = s => typeof s === 'string' && /^TODO\b/.test(s);
-const keep = s => DRAFT || !isTodo(s);
-const todoText = s => s.replace(/^TODO:?\s*/, '') || 'fill in';
+const keep = s => !isTodo(s);
 const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-function t(s){ return isTodo(s) ? (DRAFT ? `<span class="todo">✎ ${todoText(s)}</span>` : '') : s; }
+function t(s){ return isTodo(s) ? '' : s; }
 function bullets(arr){ const a = (arr || []).filter(keep); return a.length ? `<ul class="bul">${a.map(x => `<li>${t(x)}</li>`).join('')}</ul>` : ''; }
 function yearHTML(y){ return y.replace(/\s*\((.+)\)/, ' <em class="tag">$1</em>'); }
 const ORDER = Object.keys(P).filter(k => !P[k].hidden);
 const SEC_LABEL = {games:'Games', threed:'3D', apps:'Apps'};
 
-const PH_NAMES = {gif:'GIF / loop', video:'Video', image:'Image', diagram:'Diagram'};
-function phBox(kind, label, file){
-  if(!DRAFT) return '';
-  return `<div class="ph"><b>${PH_NAMES[kind] || 'Media'}</b><span>${label || ''}</span>${file ? `<code>${file}</code>` : ''}</div>`;
-}
 function loaded(el){ el.classList.add('loaded'); }
 /* GIFs are motion, like videos: they play in place and don't open in the lightbox */
 const isGif = src => /\.gif(\?|$)/i.test(src || '');
@@ -1479,16 +1451,13 @@ function dropFigure(fig){
 function missingImg(el){
   const fig = el.closest('figure');
   if(!fig){ el.remove(); return; }
-  if(!DRAFT){ dropFigure(fig); return; }
-  const host = el.closest('.dev, .zwrap, .ph-frame, .gimg') || el;
-  host.outerHTML = phBox('image', 'Missing file', el.getAttribute('src'));
+  dropFigure(fig);
 }
 function missingVideo(el){
   const fig = el.closest('figure');
   if(!fig) return el.remove();
   fig.querySelector('.snd')?.remove();
   if(el.dataset.yt){ el.outerHTML = `<div class="frame"><iframe src="${el.dataset.yt}" title="video" allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture;fullscreen" allowfullscreen></iframe></div>`; return; }
-  if(DRAFT){ (el.closest('.dev') || el).outerHTML = phBox(el.dataset.kind || 'video', el.dataset.label || 'Missing video', el.getAttribute('src')); return; }
   if(el.dataset.cover){ el.outerHTML = `<div class="zwrap"><img class="zoom fade" src="${el.dataset.cover}" alt="" onload="loaded(this)" onerror="missingImg(this)"/></div>`; return; }
   dropFigure(fig);
 }
@@ -1520,13 +1489,13 @@ function media(m){
   if(m.video) return `<figure class="vfig"><video src="${m.video}" autoplay muted loop playsinline data-label="${esc(m.label)}"${m.yt ? ` data-yt="${m.yt}"` : ''} onerror="missingVideo(this)"></video>${m.sound ? `<button class="snd" type="button" aria-pressed="false" onclick="toggleSnd(this)">Sound on</button>` : ''}${cap}</figure>`;
   if(m.yt) return `<figure><div class="frame"><iframe src="${m.yt}" title="${esc(m.cap || 'video')}" loading="lazy" allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture;fullscreen" allowfullscreen></iframe></div>${cap}</figure>`;
   if(m.ph && m.file) return slotHTML(m);
-  if(m.ph){ const box = phBox(m.ph, m.label, m.file); return box ? `<figure>${box}</figure>` : ''; }
+  if(m.ph) return '';
   return '';
 }
 function heroMedia(p){
   const h = p.hero; if(!h) return '';
   if(h.ph && h.file) return slotHTML(h, p.cover);
-  if(h.ph && !DRAFT) return media({img:p.cover});
+  if(h.ph) return media({img:p.cover});
   return media(h);
 }
 /* ── drop-in media slots ──────────────────────────────────────────
@@ -1559,8 +1528,7 @@ function trySlot(slot, list){
   el.src = src;
 }
 function slotFail(slot){
-  const fig = slot.closest('figure'), k = slot.dataset.kind;
-  if(DRAFT){ slot.outerHTML = phBox(k, slot.dataset.label, `Save as ${slot.dataset.file}${isMotion(k) ? '.mp4 (or .gif)' : '.png (or .jpg)'}`); return; }
+  const fig = slot.closest('figure');
   if(slot.dataset.cover){ slot.outerHTML = `<div class="zwrap"><img class="zoom fade" src="${slot.dataset.cover}" alt="" onload="loaded(this)" onerror="missingImg(this)"/></div>`; return; }
   if(fig) dropFigure(fig);
 }
@@ -1610,7 +1578,7 @@ function renderCS(id){
   let h = '';
 
   const snap = (p.snapshot || []).filter(([, v]) => keep(v)).map(([k, v]) => `<div><dt>${k}</dt><dd>${t(v)}</dd></div>`).join('');
-  const links = (p.links || []).filter(l => DRAFT || (l.href && !isTodo(l.label))).map(l => l.href ? `<a class="pill" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>` : `<span class="todo">✎ ${todoText(l.label)}</span>`).join('');
+  const links = (p.links || []).filter(l => l.href && !isTodo(l.label)).map(l => `<a class="pill" href="${l.href}" target="_blank" rel="noopener">${l.label}</a>`).join('');
   h += `<div class="wrap cs-top"><a class="cs-back" href="#${p.section}"><span>←</span> All ${SEC_LABEL[p.section] || 'work'}</a><div class="cs-top-r"><span class="crumb">${SEC_LABEL[p.section] || ''} · ${p.year}</span><button class="copy-link" data-copy-url>Copy link</button></div></div>
   <header class="wrap cs-hero">
     <div class="cs-hero-text">
@@ -1852,7 +1820,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ═══════════════════════════════════════════════════════════════
-   SMALL THINGS: toast, copy, clock, resume check, draft badge
+   SMALL THINGS: toast, copy, clock
    ═══════════════════════════════════════════════════════════════ */
 let toastT;
 function toast(msg){ const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(() => el.classList.remove('show'), 2400); }
@@ -1866,21 +1834,6 @@ document.addEventListener('click', e => {
 });
 function tick(){ const tm = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York'}).format(new Date()); $('#clock').textContent = `Atlanta, GA · ${tm} ET`; }
 tick(); setInterval(tick, 30000);
-
-let resumeOK = true;
-if(DRAFT) fetch(RESUME_URL, {method: 'HEAD'}).then(r => { resumeOK = r.ok && /pdf/i.test(r.headers.get('content-type') || ''); }).catch(() => { resumeOK = false; });
-document.addEventListener('click', e => {
-  const a = e.target.closest('a[data-resume]');
-  if(a && !resumeOK){ e.preventDefault(); toast(`${RESUME_URL} isn't in the folder yet. Add it next to index.html.`); }
-});
-
-if(DRAFT){
-  const b = document.createElement('div');
-  b.className = 'draft-badge';
-  b.innerHTML = `Draft: placeholders visible <a href="?draft=0${location.hash}">Preview publish mode</a><button aria-label="Hide">✕</button>`;
-  b.querySelector('button').onclick = () => b.remove();
-  document.body.appendChild(b);
-}
 
 /* ═══════════════════════════════════════════════════════════════
    SOUND: nothing plays unless the visitor presses a Game Boy button.

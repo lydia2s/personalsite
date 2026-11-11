@@ -1,0 +1,196 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+% Tailored for: Insomniac Games -- Tech Art Intern, Undergraduate (R-125842)
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Lydia He} \\ \vspace{1pt}
+    \small 408-614-9443 $|$ \href{mailto:lhe309@gatech.edu}{\underline{lhe309@gatech.edu}} $|$
+    \href{https://www.linkedin.com/in/lydiahhe}{\underline{linkedin.com/in/lydiahhe}} $|$
+    \href{https://lydiahe.com}{\underline{Portfolio: lydiahe.com}} $|$
+    \href{https://github.com/lydia2s}{\underline{github.com/lydia2s}} \\ \vspace{2pt}
+    \small U.S. Citizen
+\end{center}
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Georgia Institute of Technology}{Atlanta, GA}
+      {Bachelor of Science in Computational Media, Minor in Industrial Design $|$ GPA: 3.62/4.00}{Expected May 2028}
+      \resumeItemListStart
+        \resumeItem{\textbf{Thread:} Media \& Games $|$ \textbf{Coursework:} Linear Algebra, Data Structures \& Algorithms, Systems Programming in C, Object-Oriented Programming, Discrete Mathematics}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Shaders \& Rendering}{: Unity URP Shader Graph, Toon Shader, Particle VFX, Blender Shader Editor (NPR)} \\
+     \textbf{Post-Processing \& Look Dev}{: Blender Compositor (Glow, Glitch, Lens Distortion), Texture Painting, Lighting} \\
+     \textbf{3D Content}{: Blender (Low-Poly Modeling, Topology, Rigging, Animation), Nomad Sculpt, MagicaVoxel} \\
+     \textbf{Languages \& Math}{: C\#, Python, C, Java, JavaScript, HTML/CSS; Linear Algebra (3D Math)} \\
+     \textbf{Engine \& Pipeline}{: Unity 6 (URP, C\# Scripting), Git, GitHub, Visual Studio, Figma, Adobe Creative Cloud}
+     % ADD ONLY IF TRUE -- HLSL is the top requirement in this posting:
+     % \\ \textbf{Shader Languages}{: HLSL (Unity URP)}
+    }}
+ \end{itemize}
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Project Co-Lead -- 3D, Animation, VFX \& UI}{Summer 2026 -- Present}
+      {Unraveling -- Georgia Tech Video Game Development Club (Unity 6, Blender)}{Atlanta, GA}
+      \resumeItemListStart
+        \resumeItem{Built a particle-trail VFX in Unity's node editor, tuning it in an isolated test scene before attaching it to two enemy creatures; now iterating trails to show attack direction after 5 of 12 playtesters couldn't read it}
+        \resumeItem{Rebuilt every Blender material on Unity's Toon Shader (shadow color, colored outline, rim light) for one consistent toon look, and capped subdivision at 1--2 levels to protect real-time performance}
+        \resumeItem{Authored the onboarding art style guide and Blender-to-Unity pipeline documentation for 10+ artists across 3D, animation, VFX, and UI subteams of a 40+ person team, with sublead review before merges}
+        \resumeItem{Modeled the full Level 1 cast and two environments and rigged two creatures; at the Milestone 2 playtest, 8 of 12 testers praised the art or effects unprompted; now debugging an outline artifact near the camera}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Undergraduate Student Researcher}{Aug. 2026 -- Present}
+      {TokenVerse -- GT Expressive Machinery Lab}{Atlanta, GA}
+      \resumeItemListStart
+        \resumeItem{Building environments and 3D assets in Blender, integrating them into Unity, and designing level layouts for TokenVerse, a research game teaching AI literacy (shown at Games for Change 2026)}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Product and Design Senior Ambassador}{July 2026 -- Present}
+      {Meitu Inc.}{Atlanta, GA}
+      \resumeItemListStart
+        \resumeItem{Analyzing product interactions across global creative apps (10M+ users) and prototyping feature proposals in Figma, averaging a 1.3x bonus multiplier per report, with one feature adopted into production}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Code and 3D Modeling Instructor}{June 2026 -- Aug. 2026}
+      {iCode San Ramon}{San Ramon, CA}
+      \resumeItemListStart
+        \resumeItem{Instructed 3D modeling and low-poly topology (CAD, Blender) and led Python drone-programming projects (real-time face tracking, camera filters) for weekly classes of 8-10 K-12 students}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Furina Toon Shader Study} (Genshin Impact fan art) $|$ \emph{Blender Shader Editor}}{2026}
+          \resumeItemListStart
+            \resumeItem{Built a custom NPR material in Blender's Shader Editor that quantizes lighting into two flat tones with a hard terminator, so a 3D character reads like a 2D illustration from any angle}
+            \resumeItem{Modeled the character solo from a turnaround and hand-painted eyes, blush, and fabric folds; validated shading in a 120-frame turntable and documented next fixes (outline pass, face-shadow control)}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{City Fall} $|$ \emph{Blender, Compositor}}{2026 -- Present}
+          \resumeItemListStart
+            \resumeItem{Building a post-processing stack in Blender's compositor (glow, glitch, lens distortion) over a solo-animated fall through a stylized city, including city modeling and camera animation}
+          \resumeItemListEnd
+      % ADD ONLY IF TRUE -- the single best project for this role:
+      % \resumeProjectHeading
+      %     {\textbf{HLSL Toon Shader for Unity URP} $|$ \emph{HLSL, Unity URP}}{[Date]}
+      %     \resumeItemListStart
+      %       \resumeItem{Rewrote my node-based toon shader in HLSL with an outline pass, profiling GPU cost and cutting [X]\% of instructions}
+      %     \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+
+\end{document}
